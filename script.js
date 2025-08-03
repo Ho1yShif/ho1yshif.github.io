@@ -443,7 +443,7 @@ function initializeKeyboardNavigation() {
                 '2': 'about',
                 '3': 'projects',
                 '4': 'skills',
-                '5': 'contact'
+                '5': 'connect'
             };
             
             const sectionId = sectionMap[e.key];
