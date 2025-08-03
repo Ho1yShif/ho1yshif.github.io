@@ -418,10 +418,8 @@ section {
 }
 
 .about-content {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 4rem;
-    align-items: start;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 .about-intro {
@@ -456,37 +454,7 @@ section {
     font-weight: 600;
 }
 
-.about-skills h3 {
-    margin-bottom: 2rem;
-    color: var(--text-primary);
-}
 
-.skill-categories {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
-
-.skill-category h4 {
-    margin-bottom: 0.5rem;
-    color: var(--text-primary);
-    font-weight: 500;
-}
-
-.skill-bar {
-    height: 8px;
-    background: var(--border-color);
-    border-radius: 4px;
-    overflow: hidden;
-}
-
-.skill-progress {
-    height: 100%;
-    background: var(--gradient-primary);
-    border-radius: 4px;
-    transition: width 1s ease-in-out;
-    width: 0;
-}
 
 /* Top Skills Showcase */
 .top-skills-showcase {
@@ -993,7 +961,7 @@ section {
 }
 
 .experience-card.expanded .experience-content {
-    max-height: 800px;
+    max-height: 510px;
     padding: 1.5rem;
 }
 
@@ -1534,10 +1502,7 @@ section {
         justify-content: center;
     }
 
-    .about-content {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-    }
+
 
     .projects-grid {
         grid-template-columns: 1fr;
