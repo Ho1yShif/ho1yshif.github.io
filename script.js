@@ -244,33 +244,24 @@ function initializeProjectFilters() {
 }
 
 // Contact form functionality
+// Contact form functionality - Updated for icon-only layout
 function initializeContactForm() {
-    const contactForm = document.getElementById('contact-form');
+    // Contact form has been removed in favor of direct contact icons
+    // Add any analytics tracking for icon clicks if needed
+    const contactIcons = document.querySelectorAll('.contact-icon-link');
     
-    contactForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Get form data
-        const formData = new FormData(this);
-        const name = formData.get('name');
-        const email = formData.get('email');
-        const subject = formData.get('subject');
-        const message = formData.get('message');
-        
-        // Basic validation
-        if (!name || !email || !subject || !message) {
-            showNotification('Please fill in all fields.', 'error');
-            return;
-        }
-        
-        if (!isValidEmail(email)) {
-            showNotification('Please enter a valid email address.', 'error');
-            return;
-        }
-        
-        // Simulate form submission
-        showNotification('Message sent successfully.', 'success');
-        this.reset();
+    contactIcons.forEach(icon => {
+        icon.addEventListener('click', function() {
+            // Optional: Track contact method usage
+            const href = this.getAttribute('href');
+            console.log('Contact method used:', href);
+            
+            // Add subtle click animation
+            this.style.transform = 'translateY(-3px) scale(0.95)';
+            setTimeout(() => {
+                this.style.transform = '';
+            }, 150);
+        });
     });
 }
 

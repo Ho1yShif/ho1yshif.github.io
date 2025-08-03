@@ -749,7 +749,7 @@ section {
     font-size: 0.875rem;
 }
 
-/* Contact Section */
+/* Contact Section - OLD STYLES (Commented out for icon-only layout)
 .contact-content {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -874,6 +874,111 @@ section {
     resize: vertical;
     min-height: 120px;
 }
+*/
+
+/* Contact Icons Row */
+.contact-icons-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    margin: 2rem 0;
+    flex-wrap: wrap;
+}
+
+.contact-icon-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    background: var(--gradient-primary);
+    border-radius: 50%;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-medium);
+    position: relative;
+    overflow: hidden;
+}
+
+.contact-icon-link:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: var(--shadow-large);
+}
+
+.contact-icon-link:focus {
+    outline: 3px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+.contact-icon-svg {
+    width: 28px;
+    height: 28px;
+    color: white;
+    stroke: white;
+    z-index: 2;
+    position: relative;
+}
+
+/* Individual icon colors */
+.contact-icon-link:nth-child(1) {
+    background: linear-gradient(135deg, #ea4335 0%, #d33b2c 100%); /* Email - Red */
+}
+
+.contact-icon-link:nth-child(2) {
+    background: linear-gradient(135deg, #0077b5 0%, #005885 100%); /* LinkedIn - Blue */
+}
+
+.contact-icon-link:nth-child(3) {
+    background: linear-gradient(135deg, #333 0%, #24292e 100%); /* GitHub - Dark */
+}
+
+.contact-icon-link:nth-child(4) {
+    background: linear-gradient(135deg, #00457c 0%, #003366 100%); /* PayPal - Blue */
+}
+
+/* Dark theme adjustments */
+[data-theme="dark"] .contact-icon-link:nth-child(3) {
+    background: linear-gradient(135deg, #f6f8fa 0%, #e1e4e8 100%);
+}
+
+[data-theme="dark"] .contact-icon-link:nth-child(3) .contact-icon-svg {
+    color: #24292e;
+    stroke: #24292e;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .contact-icons-row {
+        gap: 1.5rem;
+    }
+    
+    .contact-icon-link {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .contact-icon-svg {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    .contact-icons-row {
+        gap: 1rem;
+    }
+    
+    .contact-icon-link {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .contact-icon-svg {
+        width: 20px;
+        height: 20px;
+    }
+}
 
 /* Footer */
 .footer {
@@ -963,8 +1068,7 @@ section {
     }
 
     .about-content,
-    .skills-content,
-    .contact-content {
+    .skills-content {
         grid-template-columns: 1fr;
         gap: 2rem;
     }
