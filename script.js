@@ -327,18 +327,10 @@ function animateTopSkills() {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     
     topSkillsItems.forEach((item, index) => {
-        setTimeout(() => {
-            if (prefersReducedMotion) {
-                // Simple fade in for reduced motion
-                item.style.opacity = '1';
-                item.style.transform = 'none';
-            } else {
-                // Full animation
-                item.style.opacity = '1';
-                item.style.transform = 'translateY(0)';
-                item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            }
-        }, index * 200);
+        // Instant appearance without transitions
+        item.style.opacity = '1';
+        item.style.transform = 'translateY(0)';
+        item.style.transition = 'none';
     });
 }
 
