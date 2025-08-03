@@ -17,10 +17,15 @@ const ExperienceData = [
         from_date: "May 2024",
         to_date: "March 2025",
         description:
-          `● Developing Snowflake SQL dashboard to identify improvement areas in customer satisfaction (CSAT)
-● Leading CSAT analysis to improve satisfaction scores while accommodating a 50% rise in chat volume
-● Writing external documentation for embedding applications using TypeScript, APIs, and authentication
-● Ensuring 96% CSAT and <1 minute response time while consulting on data models and infrastructure`,
+          `● Developed Snowflake SQL dashboard to identify improvement areas in customer satisfaction (CSAT)
+● Led CSAT analysis to improve satisfaction scores while accommodating a 50% rise in chat volume
+● Built data application to streamline billing updates across RevOps, Finance, and Sales organizations
+● Wrote external documentation for embedding applications using TypeScript, APIs, and authentication
+● Analyzed impact of CSAT on retention metrics to evaluate Support’s role in shaping customer strategy
+● Collaborated cross-functionally with engineering and customer success to investigate the relationship between CSAT and retention metrics, driving actionable insights to improve customer retention
+● Forecasted the impact of in-house AI tools on chat coverage to inform support workflow decisions
+● Built a data application to replace PTO scheduling in ADP, streamlining workflows and enhancing data visibility
+● Ensured 96% CSAT and <1 minute response time while consulting on data models and infrastructure`,
 
     },
     {
@@ -46,7 +51,7 @@ const ExperienceData = [
         to_date: "November 2023",
         description:
           `● Authored 9 episodes of the hit YouTube series, amassing 135K+ views and 10K+ hours of watch time
-● Crash Course Playlist Link:
+● Crash Course playlist:
 https://www.youtube.com/watch?v=yBFu9HxiD88&list=PLID58IQe16nFgbHGRCj5QEXKUpVIilpDN&index=29`,
 
     },
@@ -57,7 +62,7 @@ https://www.youtube.com/watch?v=yBFu9HxiD88&list=PLID58IQe16nFgbHGRCj5QEXKUpVIil
         to_date: "Present",
         description:
           `● Designing curriculum and writing lessons for Lua Learning, an award-winning Roblox game with 7.7M+ visits and 115K monthly active users
-● Lua Learning Link: https://www.roblox.com/games/1334669864/Lua-Learning`,
+● Lua Learning: https://www.roblox.com/games/1334669864/Lua-Learning`,
 
     },
     {
@@ -127,7 +132,7 @@ function initializeApp() {
     initializeNavigation();
     initializeThemeToggle();
     initializeAnimations();
-    initializeSkillBars();
+    initializeTopSkillsAnimation();
 
     initializeContactForm();
     initializeSmoothScrolling();
@@ -291,40 +296,51 @@ function initializeAnimations() {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
                 
-                // Trigger skill bar animations when about section is visible
+                // Trigger top skills animations when about section is visible
                 if (entry.target.id === 'about') {
-                    animateSkillBars();
+                    animateTopSkills();
                 }
             }
         });
     }, observerOptions);
 
     // Observe all sections and cards
-    const elementsToObserve = document.querySelectorAll('section, .project-card, .value-item, .tech-item, .cert-item');
+    const elementsToObserve = document.querySelectorAll('section, .project-card, .value-item, .tech-item, .top-skill-item');
     elementsToObserve.forEach(element => {
         element.classList.add('fade-in');
         observer.observe(element);
     });
 }
 
-// Skill bars animation
-function initializeSkillBars() {
-    const skillBars = document.querySelectorAll('.skill-progress');
+// Top skills animation
+function initializeTopSkillsAnimation() {
+    const topSkillsItems = document.querySelectorAll('.top-skill-item');
     
-    skillBars.forEach(bar => {
-        const skillLevel = bar.getAttribute('data-skill');
-        bar.style.width = '0%';
+    // Reset initial state
+    topSkillsItems.forEach(item => {
+        item.style.opacity = '0';
+        item.style.transform = 'translateY(20px)';
     });
 }
 
-function animateSkillBars() {
-    const skillBars = document.querySelectorAll('.skill-progress');
+function animateTopSkills() {
+    const topSkillsItems = document.querySelectorAll('.top-skill-item');
     
-    skillBars.forEach((bar, index) => {
-        const skillLevel = bar.getAttribute('data-skill');
-        
+    // Check for reduced motion preference
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    
+    topSkillsItems.forEach((item, index) => {
         setTimeout(() => {
-            bar.style.width = skillLevel + '%';
+            if (prefersReducedMotion) {
+                // Simple fade in for reduced motion
+                item.style.opacity = '1';
+                item.style.transform = 'none';
+            } else {
+                // Full animation
+                item.style.opacity = '1';
+                item.style.transform = 'translateY(0)';
+                item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            }
         }, index * 200);
     });
 }
@@ -675,7 +691,7 @@ function generateExperienceCards() {
                         ${exp.from_date} - ${exp.to_date}
                     </div>
                 </div>
-                <div class="expand-indicator">▼</div>
+                <div class="expand-indicator">►</div>
             </div>
             <div class="experience-content" id="exp-content-${index}">
                 <div class="experience-description">${exp.description}</div>

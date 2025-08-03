@@ -126,18 +126,6 @@
     font-size: 1.2rem;
 }
 
-/* Certification badges */
-.cert-badge {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.cert-badge::before {
-    content: "🏆";
-    font-size: 1.5rem;
-}
 
 /* Floating chart animations */
 .floating-chart {

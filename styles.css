@@ -535,7 +535,7 @@ section {
     padding: 1.5rem;
     border-radius: 0.5rem;
     box-shadow: var(--shadow-light);
-    border: 1px solid var(--border-color);
+    /* border: 1px solid var(--border-color); */
     transition: all 0.3s ease;
 }
 
@@ -578,8 +578,8 @@ section {
     transition: max-height 0.3s ease, padding 0.3s ease;
     background: var(--bg-color);
     border-radius: 0 0 0.5rem 0.5rem;
-    border: 1px solid var(--border-color);
-    border-top: none;
+    /* border: 1px solid var(--border-color); */
+    /* border-top: none; */
 }
 
 .experience-card.expanded .experience-content {
@@ -599,8 +599,7 @@ section {
 .expand-indicator {
     position: absolute;
     right: 1rem;
-    top: 50%;
-    transform: translateY(-50%);
+    bottom: 1rem;
     color: var(--text-muted);
     font-size: 0.875rem;
     transition: transform 0.3s ease, opacity 0.3s ease, color 0.3s ease;
@@ -609,7 +608,7 @@ section {
 }
 
 .experience-card.expanded .expand-indicator {
-    transform: translateY(-50%) rotate(180deg);
+    transform: rotate(90deg);
     opacity: 0.8;
 }
 
@@ -647,6 +646,7 @@ section {
     .expand-indicator {
         font-size: 0.75rem;
         right: 0.75rem;
+        bottom: 0.75rem;
     }
 }
 
@@ -743,43 +743,7 @@ section {
     line-height: 1.6;
 }
 
-.project-tech {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
-}
 
-.tech-tag {
-    padding: 0.25rem 0.75rem;
-    background: var(--bg-secondary);
-    color: var(--primary-color);
-    border-radius: 1rem;
-    font-size: 0.875rem;
-    font-weight: 500;
-    border: 1px solid var(--primary-color);
-}
-
-.project-metrics {
-    display: flex;
-    gap: 2rem;
-}
-
-.metric {
-    text-align: center;
-}
-
-.metric-value {
-    display: block;
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--primary-color);
-}
-
-.metric-label {
-    font-size: 0.875rem;
-    color: var(--text-muted);
-}
 
 /* Skills Section */
 .skills {
@@ -846,44 +810,123 @@ section {
     font-weight: 500;
 }
 
-.certifications h3 {
+/* Top Skills Showcase */
+.top-skills-showcase {
+    background: var(--bg-color);
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: var(--shadow-light);
+    border: 1px solid var(--border-color);
+}
+
+.top-skills-showcase h3 {
+    text-align: center;
     margin-bottom: 2rem;
     color: var(--text-primary);
-}
-
-.cert-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
-
-.cert-item {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 1.5rem;
-    background: var(--bg-color);
-    border-radius: 0.5rem;
-    box-shadow: var(--shadow-light);
-}
-
-.cert-badge {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background: var(--gradient-secondary);
-    flex-shrink: 0;
-}
-
-.cert-info h4 {
-    color: var(--text-primary);
-    margin-bottom: 0.25rem;
+    font-size: 1.5rem;
     font-weight: 600;
 }
 
-.cert-info p {
-    color: var(--text-muted);
+.top-skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 2rem;
+    align-items: start;
+}
+
+.top-skill-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 1.5rem 1rem;
+    background: var(--bg-secondary);
+    border-radius: 0.75rem;
+    border: 2px solid transparent;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.top-skill-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.6s ease;
+}
+
+.top-skill-item:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent-color);
+    box-shadow: var(--shadow-medium);
+}
+
+.top-skill-item:hover::before {
+    left: 100%;
+}
+
+.skill-icon-large {
+    margin-bottom: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.top-skill-item:hover .skill-icon-large {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.skill-name {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.skill-description {
     font-size: 0.875rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+}
+
+/* Floating animation for top skills */
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.05); opacity: 0.8; }
+}
+
+.top-skill-item:nth-child(1) {
+    animation: float 6s ease-in-out infinite;
+}
+
+.top-skill-item:nth-child(2) {
+    animation: float 6s ease-in-out infinite 2s;
+}
+
+.top-skill-item:nth-child(3) {
+    animation: float 6s ease-in-out infinite 4s;
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    .top-skill-item {
+        animation: none;
+    }
+    
+    .top-skill-item:hover {
+        transform: none;
+    }
+    
+    .top-skill-item:hover .skill-icon-large {
+        transform: none;
+    }
 }
 
 /* Contact Section - OLD STYLES (Commented out for icon-only layout)
@@ -1257,6 +1300,57 @@ section {
     .btn {
         width: 100%;
         max-width: 300px;
+    }
+}
+
+/* Top Skills Showcase Responsive Design */
+@media (max-width: 768px) {
+    .top-skills-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .top-skill-item {
+        padding: 1.25rem;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+    
+    .skill-icon-large svg {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+@media (max-width: 480px) {
+    .top-skills-showcase {
+        padding: 1.5rem;
+    }
+    
+    .top-skills-showcase h3 {
+        font-size: 1.25rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .top-skills-grid {
+        gap: 1rem;
+    }
+    
+    .top-skill-item {
+        padding: 1rem;
+    }
+    
+    .skill-icon-large svg {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .skill-name {
+        font-size: 1rem;
+    }
+    
+    .skill-description {
+        font-size: 0.8125rem;
     }
 }
 
