@@ -50,9 +50,7 @@ const ExperienceData = [
         from_date: "November 2022",
         to_date: "November 2023",
         description:
-          `● Authored 9 episodes of the hit YouTube series, amassing 135K+ views and 10K+ hours of watch time
-● Crash Course playlist:
-https://www.youtube.com/watch?v=yBFu9HxiD88&list=PLID58IQe16nFgbHGRCj5QEXKUpVIilpDN&index=29`,
+          `● Authored 9 episodes of the <a href="https://www.youtube.com/watch?v=yBFu9HxiD88&list=PLID58IQe16nFgbHGRCj5QEXKUpVIilpDN&index=29" target="_blank" rel="noopener noreferrer">Crash Course series</a>, amassing 135K+ views and 10K+ hours of watch time on YouTube`,
 
     },
     {
@@ -61,8 +59,7 @@ https://www.youtube.com/watch?v=yBFu9HxiD88&list=PLID58IQe16nFgbHGRCj5QEXKUpVIil
         from_date: "January 2023",
         to_date: "Present",
         description:
-          `● Designing curriculum and writing lessons for Lua Learning, an award-winning Roblox game with 7.7M+ visits and 115K monthly active users
-● Lua Learning: https://www.roblox.com/games/1334669864/Lua-Learning`,
+          `● Designing curriculum and writing lessons for <a href="https://www.roblox.com/games/1334669864/Lua-Learning" target="_blank" rel="noopener noreferrer">Lua Learning</a>, an award-winning Roblox game with 7.7M+ visits and 115K monthly active users`,
 
     },
     {
