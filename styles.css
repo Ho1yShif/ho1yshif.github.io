@@ -953,16 +953,18 @@ section {
 .experience-content {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.3s ease, padding 0.3s ease;
+    transition: max-height 0.3s ease, padding-top 0.3s ease, padding-bottom 0.3s ease;
     background: var(--bg-color);
     border-radius: 0 0 0.5rem 0.5rem;
+    padding: 0 1.5rem; /* Apply horizontal padding always to maintain text width */
     /* border: 1px solid var(--border-color); */
     /* border-top: none; */
 }
 
 .experience-card.expanded .experience-content {
     max-height: 510px;
-    padding: 1.5rem;
+    padding-top: 1.5rem; /* Add top padding when expanded */
+    padding-bottom: 1.5rem; /* Add bottom padding when expanded */
 }
 
 .experience-description {
