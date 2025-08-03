@@ -118,9 +118,9 @@ git push origin main
    - **Contact**: Update email, LinkedIn, GitHub, and other social links
 
 4. **Add Your Assets**
-   - Replace `img/profile.jpg` with your professional headshot
-   - Add project screenshots (`img/project1.jpg`, `img/project2.jpg`, etc.)
-   - Update the logo in `img/logo.svg` if desired
+   - Replace `assets/images/profile.jpg` with your professional headshot
+   - Add project screenshots (`assets/images/project1.jpg`, `assets/images/project2.jpg`, etc.)
+   - Update the logo in `assets/images/logo.svg` if desired
 
 5. **Test Responsiveness**
    - Use browser dev tools to test different screen sizes

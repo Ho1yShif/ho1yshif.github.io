@@ -12,6 +12,7 @@ function initializeApp() {
     initializeProjectFilters();
     initializeContactForm();
     initializeSmoothScrolling();
+    initializeResumeDownload();
 }
 
 // Navigation functionality
@@ -37,17 +38,21 @@ function initializeNavigation() {
     // Update active navigation link based on scroll position
     window.addEventListener('scroll', updateActiveNavLink);
     
-    // Navbar background on scroll
-    window.addEventListener('scroll', function() {
+    // Named function for navbar background updates
+    function updateNavbarBackground() {
         const navbar = document.getElementById('navbar');
         if (window.scrollY > 50) {
-            navbar.style.background = getComputedStyle(document.documentElement)
-                .getPropertyValue('--bg-color') + 'f5'; // Add opacity
+            navbar.classList.add('scrolled');
         } else {
-            navbar.style.background = getComputedStyle(document.documentElement)
-                .getPropertyValue('--bg-color') + 'f0';
+            navbar.classList.remove('scrolled');
         }
-    });
+    }
+    
+    // Navbar background on scroll
+    window.addEventListener('scroll', updateNavbarBackground);
+    
+    // Make the function available globally so theme toggle can call it
+    window.updateNavbarBackground = updateNavbarBackground;
 }
 
 function updateActiveNavLink() {
@@ -91,6 +96,11 @@ function initializeThemeToggle() {
         document.documentElement.setAttribute('data-theme', newTheme);
         localStorage.setItem('theme', newTheme);
         updateThemeIcon(newTheme, themeIcon);
+        
+        // Update navbar background to match new theme
+        if (window.updateNavbarBackground) {
+            window.updateNavbarBackground();
+        }
     });
 }
 
@@ -276,6 +286,15 @@ function showNotification(message, type) {
     notification.textContent = message;
     
     // Style the notification
+    const getBackgroundColor = (type) => {
+        switch(type) {
+            case 'success': return '#10b981;';
+            case 'error': return '#ef4444;';
+            case 'info': return '#3b82f6;';
+            default: return '#6b7280;';
+        }
+    };
+    
     notification.style.cssText = `
         position: fixed;
         top: 100px;
@@ -289,7 +308,7 @@ function showNotification(message, type) {
         transition: transform 0.3s ease;
         max-width: 400px;
         box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        ${type === 'success' ? 'background: #10b981;' : 'background: #ef4444;'}
+        background: ${getBackgroundColor(type)}
     `;
     
     document.body.appendChild(notification);
@@ -479,6 +498,70 @@ window.addEventListener('error', function(e) {
     console.error('An error occurred:', e.error);
     // You could implement error reporting here
 });
+
+// Resume download functionality
+function initializeResumeDownload() {
+    const resumeButton = document.getElementById('resume-download');
+    
+    if (resumeButton) {
+        resumeButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            downloadResumeFromGoogleDrive();
+        });
+    }
+}
+
+function downloadResumeFromGoogleDrive() {
+    // Google Drive sharing URL
+    const googleDriveShareUrl = 'https://docs.google.com/document/d/1KBnF9S5ot0XMx3fBoncZMl690q3BDPhMZGImKiMNIPQ/edit?usp=sharing';
+    
+    // Extract the file ID from the Google Drive URL
+    const fileId = extractGoogleDriveFileId(googleDriveShareUrl);
+    
+    if (fileId) {
+        // Convert to direct download URL for PDF export
+        const downloadUrl = `https://docs.google.com/document/d/${fileId}/export?format=pdf`;
+        
+        // Show loading notification
+        showNotification('Preparing resume download...', 'info');
+        
+        // Create a temporary link and trigger download
+        const link = document.createElement('a');
+        link.href = downloadUrl;
+        link.download = 'Shifra_Williams_Resume.pdf';
+        link.target = '_blank';
+        
+        // Append to body, click, and remove
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        // Show success notification after a brief delay
+        setTimeout(() => {
+            showNotification('Resume download started!', 'success');
+        }, 1000);
+    } else {
+        showNotification('Error: Unable to process resume download.', 'error');
+    }
+}
+
+function extractGoogleDriveFileId(url) {
+    // Extract file ID from various Google Drive URL formats
+    const patterns = [
+        /\/document\/d\/([a-zA-Z0-9-_]+)/,
+        /id=([a-zA-Z0-9-_]+)/,
+        /\/file\/d\/([a-zA-Z0-9-_]+)/
+    ];
+    
+    for (const pattern of patterns) {
+        const match = url.match(pattern);
+        if (match) {
+            return match[1];
+        }
+    }
+    
+    return null;
+}
 
 // Service Worker registration (for PWA features)
 if ('serviceWorker' in navigator) {
