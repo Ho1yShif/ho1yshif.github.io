@@ -10,6 +10,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
 </head>
 <body>
     <nav class="navbar" id="navbar">
@@ -23,6 +28,9 @@
                 </li>
                 <li class="nav-item">
                     <a href="#about" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#experience" class="nav-link">Experience</a>
                 </li>
                 <li class="nav-item">
                     <a href="#projects" class="nav-link">Projects</a>
@@ -158,18 +166,21 @@
             </div>
         </section>
 
+        <section id="experience" class="experience">
+            <div class="container">
+                <h2 class="section-title">Experience</h2>
+                <div class="experience-timeline" id="experience-timeline">
+                    <!-- Experience cards will be dynamically generated -->
+                </div>
+            </div>
+        </section>
+
         <section id="projects" class="projects">
             <div class="container">
                 <h2 class="section-title">Projects</h2>
-                <div class="projects-filter">
-                    <button class="filter-btn active" data-filter="all">All</button>
-                    <button class="filter-btn" data-filter="education">Education</button>
-                    <button class="filter-btn" data-filter="technical-writing">Technical Writing</button>
-                    <button class="filter-btn" data-filter="data-science">Data Science</button>
-                    <button class="filter-btn" data-filter="ai-ml">AI/ML</button>
-                </div>
+
                 <div class="projects-grid">
-                    <div class="project-card" data-category="education">
+                    <div class="project-card" >
                         <div class="project-image">
                             <img src="assets/images/oop-thumbnail.jpeg" alt="Crash Course Study Hall - Statistics" />
                             <div class="project-overlay">
@@ -202,7 +213,7 @@
                         </div>
                     </div>
 
-                    <div class="project-card" data-category="technical-writing">
+                    <div class="project-card" >
                         <div class="project-image">
                             <img src="assets/images/datalemur.webp" alt="DataLemur Platform" />
                             <div class="project-overlay">
@@ -235,7 +246,7 @@
                         </div>
                     </div>
 
-                    <div class="project-card" data-category="data-science">
+                    <div class="project-card" >
                         <div class="project-image">
                             <img src="assets/images/fob.jpg" alt="Classification of Fall Out Boy Eras" />
                             <div class="project-overlay">
@@ -269,7 +280,7 @@
                         </div>
                     </div>
 
-                    <div class="project-card" data-category="education">
+                    <div class="project-card" >
                         <div class="project-image">
                             <img src="assets/images/lua-learning.webp" alt="Lua Learning - Educational Game" />
                             <div class="project-overlay">
@@ -302,7 +313,7 @@
                         </div>
                     </div>
 
-                    <div class="project-card" data-category="ai-ml">
+                    <div class="project-card" >
                         <div class="project-image">
                             <img src="assets/images/shakespeare.webp" alt="Shakespeare GPT" />
                             <div class="project-overlay">
@@ -335,7 +346,7 @@
                         </div>
                     </div>
 
-                    <div class="project-card" data-category="data-science">
+                    <div class="project-card" >
                         <div class="project-image">
                             <img src="assets/images/flood-nj.jpeg" alt="New Jersey Flood Prediction" />
                             <div class="project-overlay">
