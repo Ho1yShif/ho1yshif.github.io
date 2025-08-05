@@ -681,7 +681,11 @@ function generateExperienceCards() {
                         <span class="date-mobile">${formatDateForMobile(exp.from_date)} - ${formatDateForMobile(exp.to_date)}</span>
                     </div>
                 </div>
-                <div class="expand-indicator">►</div>
+                <div class="expand-indicator">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2L8 6L4 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
             </div>
             <div class="experience-content" id="exp-content-${index}">
                 <div class="experience-description">${exp.description}</div>

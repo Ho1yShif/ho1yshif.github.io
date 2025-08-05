@@ -1083,10 +1083,19 @@ section {
     right: 1rem;
     bottom: 1rem;
     color: var(--text-muted);
-    font-size: 0.875rem;
     transition: transform 0.3s ease, opacity 0.3s ease;
-    font-weight: 500;
     opacity: 0.7;
+    width: 12px;
+    height: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.expand-indicator svg {
+    width: 100%;
+    height: 100%;
+    transition: inherit;
 }
 
 .experience-card.expanded .expand-indicator {
@@ -1147,7 +1156,8 @@ section {
     }
     
     .expand-indicator {
-        font-size: 0.75rem;
+        width: 10px;
+        height: 10px;
         right: 0.75rem;
         bottom: 0.75rem;
     }
@@ -1175,6 +1185,13 @@ section {
     
     .experience-title h4 {
         font-size: 0.9rem;
+    }
+    
+    .expand-indicator {
+        width: 9px;
+        height: 9px;
+        right: 0.5rem;
+        bottom: 0.5rem;
     }
 }
 
