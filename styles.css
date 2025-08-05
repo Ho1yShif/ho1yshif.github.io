@@ -743,7 +743,7 @@ section {
     background: linear-gradient(
         90deg,
         transparent,
-        rgba(59, 130, 246, 0.1),
+        rgba(255, 255, 255, 0.1),
         transparent
     );
     transition: left 0.8s ease;
@@ -859,7 +859,7 @@ section {
     background: linear-gradient(
         90deg,
         transparent,
-        rgba(59, 130, 246, 0.2),
+        rgba(255, 255, 255, 0.2),
         transparent
     );
 }
