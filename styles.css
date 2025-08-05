@@ -1695,7 +1695,7 @@ section {
 }
 
 .speaking-card {
-    background: var(--bg-color);
+    background: var(--bg-secondary);
     border-radius: 1rem;
     overflow: hidden;
     box-shadow: var(--shadow-light);

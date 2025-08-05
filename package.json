@@ -1,7 +1,7 @@
 {
   "name": "portfolio",
   "version": "1.0.0",
-  "description": "A modern, responsive portfolio website designed specifically for data scientists to showcase their skills, projects, and expertise.",
+  "description": "Shifra Williams' portfolio website - A modern, responsive portfolio showcasing skills, projects, and expertise in data science and technology.",
   "main": "script.js",
   "scripts": {
     "dev": "live-server --port=3001 --host=localhost",
