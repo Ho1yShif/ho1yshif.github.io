@@ -22,7 +22,7 @@ To run this website locally:
    npm run dev
    ```
 
-The website will automatically open in your browser at `http://localhost:3001` with hot reload enabled - any changes you make will automatically refresh the page!
+The website will automatically open in your browser at `http://localhost:3000` with hot reload enabled - any changes you make will automatically refresh the page!
 
 ## Features
 
