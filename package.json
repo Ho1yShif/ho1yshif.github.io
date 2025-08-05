@@ -4,7 +4,7 @@
   "description": "A modern, responsive portfolio website designed specifically for data scientists to showcase their skills, projects, and expertise.",
   "main": "script.js",
   "scripts": {
-    "dev": "live-server --port=3000 --host=localhost --open=/index.html",
+    "dev": "live-server --port=3001 --host=localhost --open=/index.html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

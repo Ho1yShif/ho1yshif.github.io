@@ -221,7 +221,7 @@ body {
     min-height: 100vh;
     display: flex;
     align-items: center;
-    background: linear-gradient(135deg, var(--bg-color) 0%, var(--bg-secondary) 100%);
+    background: var(--bg-color);
     position: relative;
     overflow: hidden;
 }
@@ -414,7 +414,7 @@ section {
 
 /* About Section */
 .about {
-    background: var(--bg-secondary);
+    background: var(--bg-color);
 }
 
 .about-content {
@@ -442,7 +442,7 @@ section {
 
 .value-item {
     padding: 1.5rem;
-    background: var(--bg-color);
+    background: var(--bg-secondary);
     border-radius: 0.5rem;
     box-shadow: var(--shadow-light);
     border-left: 4px solid var(--primary-color);
@@ -484,7 +484,7 @@ section {
 }
 
 .top-skill-item {
-    background: var(--bg-color);
+    background: var(--bg-secondary);
     border-radius: 1.5rem;
     padding: 2.5rem 2rem;
     text-align: center;
@@ -786,7 +786,7 @@ section {
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.3s ease, padding-top 0.3s ease, padding-bottom 0.3s ease;
-    background: var(--bg-color);
+    background: var(--bg-secondary);
     border-radius: 0 0 0.5rem 0.5rem;
     padding: 0 1.5rem; /* Apply horizontal padding always to maintain text width */
     /* border: 1px solid var(--border-color); */
@@ -878,7 +878,7 @@ section {
 }
 
 .project-card {
-    background: var(--bg-color);
+    background: var(--bg-secondary);
     border-radius: 1rem;
     overflow: hidden;
     box-shadow: var(--shadow-light);
@@ -1199,7 +1199,7 @@ section {
 
 /* Footer */
 .footer {
-    background: var(--bg-secondary);
+    background: var(--bg-color);
     border-top: 1px solid var(--border-color);
     padding: 2rem 0;
 }
