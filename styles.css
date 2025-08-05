@@ -1002,6 +1002,7 @@ section {
     box-shadow: var(--shadow-light);
     /* border: 1px solid var(--border-color); */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
 }
 
 .experience-card:hover .experience-header {
