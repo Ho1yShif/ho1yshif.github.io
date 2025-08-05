@@ -1151,7 +1151,7 @@ section {
 }
 
 .contact-icon-link:nth-child(4) {
-    background: linear-gradient(135deg, #00457c 0%, #003366 100%); /* PayPal - Blue */
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%); /* Donate - Heart Red */
 }
 
 /* Dark theme adjustments */
