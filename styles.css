@@ -1414,17 +1414,17 @@ section {
 
 .speaking-role {
     font-size: 1rem;
-    color: var(--primary-color);
+    color: var(--text-secondary);
     font-weight: 500;
     margin: 0;
+    font-style: italic;
 }
 
 .speaking-organization {
     font-size: 0.9rem;
-    color: var(--text-secondary);
+    color: var(--primary-color);
     font-weight: 400;
     margin: 0.25rem 0 0 0;
-    font-style: italic;
 }
 
 .speaking-content {
