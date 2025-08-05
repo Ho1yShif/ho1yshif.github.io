@@ -59,7 +59,7 @@ const ExperienceData = [
         from_date: "January 2023",
         to_date: "Present",
         description:
-          `● Designing curriculum and writing lessons for <a href="https://www.roblox.com/games/1334669864/Lua-Learning" target="_blank" rel="noopener noreferrer">Lua Learning</a>, an award-winning Roblox game with 7.7M+ visits and 115K monthly active users`,
+          `● Designing curriculum and writing lessons for <a href="https://www.roblox.com/games/1334669864/Lua-Learning" target="_blank" rel="noopener noreferrer">Lua Learning</a>, an award-winning Roblox game with 8.4M+ visits and 150K+ monthly active users`,
 
     },
     {
