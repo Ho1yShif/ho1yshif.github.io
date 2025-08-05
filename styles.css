@@ -1380,7 +1380,7 @@ section {
 }
 
 .speaking-badge.education {
-    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
     color: white;
 }
 
@@ -1396,6 +1396,11 @@ section {
 
 .speaking-badge.diversity {
     background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+    color: white;
+}
+
+.speaking-badge.podcast {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
     color: white;
 }
 
@@ -1424,6 +1429,34 @@ section {
 
 .speaking-content {
     padding: 0 1.5rem 1.5rem;
+}
+
+.speaking-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background: var(--primary-color);
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.speaking-link:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+    text-decoration: none;
+    color: white;
+}
+
+.speaking-link::after {
+    content: '↗';
+    font-size: 0.75rem;
+    opacity: 0.8;
 }
 
 .speaking-description {
