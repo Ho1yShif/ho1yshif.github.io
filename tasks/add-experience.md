@@ -95,7 +95,7 @@ export const ExperienceData = [
       "career_track": ["Technical Writing", "Software Engineering", "Game Development", "Education"]
   },
   {
-    organization: "DataLemur.com",
+    organization: "DataLemur",
     role: "Technical Writer & Product Manager",
     from_date: "August 2022",
     to_date: "January 2023",

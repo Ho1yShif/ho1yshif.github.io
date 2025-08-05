@@ -187,7 +187,7 @@ Specific data:
       `,
   },
   {
-    organization: "DataLemur.com",
+    organization: "DataLemur",
     role: "Technical Writer & Product Manager",
     from_date: "August 2022",
     to_date: "January 2023",
