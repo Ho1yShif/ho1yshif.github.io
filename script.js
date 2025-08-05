@@ -677,7 +677,8 @@ function generateExperienceCards() {
                         <h4>${exp.role}</h4>
                     </div>
                     <div class="experience-dates">
-                        ${exp.from_date} - ${exp.to_date}
+                        <span class="date-full">${exp.from_date} - ${exp.to_date}</span>
+                        <span class="date-mobile">${formatDateForMobile(exp.from_date)} - ${formatDateForMobile(exp.to_date)}</span>
                     </div>
                 </div>
                 <div class="expand-indicator">►</div>
@@ -689,6 +690,31 @@ function generateExperienceCards() {
     `).join('');
     
     timeline.innerHTML = experienceHTML;
+}
+
+function formatDateForMobile(dateString) {
+    // Convert long month names to short abbreviations for mobile
+    const monthMap = {
+        'January': 'Jan',
+        'February': 'Feb',
+        'March': 'Mar',
+        'April': 'Apr',
+        'May': 'May',
+        'June': 'Jun',
+        'July': 'Jul',
+        'August': 'Aug',
+        'September': 'Sep',
+        'October': 'Oct',
+        'November': 'Nov',
+        'December': 'Dec'
+    };
+    
+    let formatted = dateString;
+    for (const [full, short] of Object.entries(monthMap)) {
+        formatted = formatted.replace(full, short);
+    }
+    
+    return formatted;
 }
 
 function setupExperienceInteractions() {
