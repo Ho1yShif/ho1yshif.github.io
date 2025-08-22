@@ -753,7 +753,7 @@ section {
 .experience-content {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.3s ease, padding-top 0.3s ease, padding-bottom 0.3s ease;
+    transition: max-height 0.4s ease, padding-top 0.3s ease, padding-bottom 0.3s ease;
     background: var(--bg-secondary);
     border-radius: 0 0 0.5rem 0.5rem;
     padding: 0 1.5rem; /* Apply horizontal padding always to maintain text width */
@@ -762,7 +762,7 @@ section {
 }
 
 .experience-card.expanded .experience-content {
-    max-height: 510px;
+    /* max-height is now set dynamically via JavaScript */
     padding-top: 1.5rem; /* Add top padding when expanded */
     padding-bottom: 1.5rem; /* Add bottom padding when expanded */
 }
@@ -770,7 +770,7 @@ section {
 .experience-description {
     color: var(--text-secondary);
     line-height: 1.6;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
     white-space: pre-line;
 }
 
@@ -840,6 +840,25 @@ section {
         hyphens: auto;
     }
     
+    .experience-content {
+        padding: 0 1.25rem; /* Adjust horizontal padding for tablets */
+    }
+    
+    .experience-title h3 {
+        word-wrap: break-word;
+        hyphens: auto;
+    }
+    
+    .experience-title h4 {
+        word-wrap: break-word;
+        hyphens: auto;
+    }
+    
+    .experience-description {
+        word-wrap: break-word;
+        hyphens: auto;
+    }
+    
     .date-full {
         display: none;
     }
@@ -868,6 +887,10 @@ section {
         padding-left: 40px;
     }
     
+    .experience-content {
+        padding: 0 1rem; /* Reduce horizontal padding on very small screens */
+    }
+    
     .experience-meta {
         gap: 0.5rem;
     }
@@ -879,10 +902,20 @@ section {
     
     .experience-title h3 {
         font-size: 1.1rem;
+        word-wrap: break-word;
+        hyphens: auto;
     }
     
     .experience-title h4 {
         font-size: 0.9rem;
+        word-wrap: break-word;
+        hyphens: auto;
+    }
+    
+    .experience-description {
+        font-size: 0.9rem;
+        word-wrap: break-word;
+        hyphens: auto;
     }
     
     .expand-indicator {

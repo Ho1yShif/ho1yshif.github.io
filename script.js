@@ -360,6 +360,7 @@ function updateCopyrightYear() {
 function initializeExperience() {
     generateExperienceCards();
     setupExperienceInteractions();
+    setupExperienceResizeHandler();
 }
 
 function generateExperienceCards() {
@@ -437,6 +438,8 @@ function setupExperienceInteractions() {
 function toggleExperienceCard() {
     const card = this;
     const isExpanded = card.classList.contains('expanded');
+    const content = card.querySelector('.experience-content');
+    const description = content.querySelector('.experience-description');
     
     // Optional: Close other cards (accordion behavior)
     // document.querySelectorAll('.experience-card.expanded').forEach(otherCard => {
@@ -446,8 +449,84 @@ function toggleExperienceCard() {
     //     }
     // });
     
-    // Toggle current card
-    card.classList.toggle('expanded');
-    card.setAttribute('aria-expanded', !isExpanded);
+    if (!isExpanded) {
+        // Temporarily expand to measure actual content height
+        content.style.maxHeight = 'none';
+        content.style.paddingTop = '1.5rem';
+        content.style.paddingBottom = '1.5rem';
+        content.style.overflow = 'hidden'; // Prevent content from affecting layout during measurement
+        
+        // Force a layout recalculation
+        content.offsetHeight;
+        
+        // Get the actual height including padding
+        const actualHeight = content.scrollHeight;
+        
+        // Add a buffer to account for increased margin and prevent content cutoff
+        const bufferHeight = actualHeight + 15;
+        
+        // Reset to collapsed state
+        content.style.maxHeight = '0';
+        content.style.paddingTop = '0';
+        content.style.paddingBottom = '0';
+        
+        // Force reflow
+        content.offsetHeight;
+        
+        // Animate to the calculated height
+        requestAnimationFrame(() => {
+            content.style.maxHeight = `${bufferHeight}px`;
+            content.style.paddingTop = '1.5rem';
+            content.style.paddingBottom = '1.5rem';
+        });
+        
+        card.classList.add('expanded');
+        card.setAttribute('aria-expanded', 'true');
+    } else {
+        // Collapse the card
+        content.style.maxHeight = '0';
+        content.style.paddingTop = '0';
+        content.style.paddingBottom = '0';
+        card.classList.remove('expanded');
+        card.setAttribute('aria-expanded', 'false');
+    }
+}
+
+function setupExperienceResizeHandler() {
+    let resizeTimeout;
+    
+    window.addEventListener('resize', () => {
+        // Debounce resize events to avoid excessive recalculations
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            recalculateExpandedCards();
+        }, 150);
+    });
+}
+
+function recalculateExpandedCards() {
+    const expandedCards = document.querySelectorAll('.experience-card.expanded');
+    
+    expandedCards.forEach(card => {
+        const content = card.querySelector('.experience-content');
+        const description = content.querySelector('.experience-description');
+        
+        // Temporarily expand to measure actual content height
+        content.style.maxHeight = 'none';
+        content.style.paddingTop = '1.5rem';
+        content.style.paddingBottom = '1.5rem';
+        
+        // Force a layout recalculation
+        content.offsetHeight;
+        
+        // Get the actual height including padding
+        const actualHeight = content.scrollHeight;
+        
+        // Add a buffer to account for increased margin and prevent content cutoff
+        const bufferHeight = actualHeight + 15;
+        
+        // Set the new calculated height
+        content.style.maxHeight = `${bufferHeight}px`;
+    });
 }
 
