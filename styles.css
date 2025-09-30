@@ -1077,27 +1077,41 @@ section {
 
 /* Individual icon colors */
 .contact-icon-link:nth-child(1) {
-    background: linear-gradient(135deg, #ea4335 0%, #d33b2c 100%); /* Email - Red */
-}
-
-.contact-icon-link:nth-child(2) {
     background: linear-gradient(135deg, #0077b5 0%, #005885 100%); /* LinkedIn - Blue */
 }
 
-.contact-icon-link:nth-child(3) {
+.contact-icon-link:nth-child(2) {
     background: linear-gradient(135deg, #333 0%, #24292e 100%); /* GitHub - Dark */
 }
 
+.contact-icon-link:nth-child(3) {
+    background: linear-gradient(135deg, #ff424d 0%, #f96854 100%); /* Patreon */
+}
+
 .contact-icon-link:nth-child(4) {
-    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%); /* Donate - Heart Red */
+    background: linear-gradient(135deg, #ffdd00 0%, #ffb800 100%); /* Buy Me a Coffee */
+}
+
+.contact-icon-link:nth-child(5) {
+    background: linear-gradient(135deg, #ea4335 0%, #d33b2c 100%); /* Email - Red */
+}
+
+/* Patreon */
+.contact-icons-row .contact-icon-link[href*="patreon"] {
+    background: linear-gradient(135deg, #ff424d 0%, #f96854 100%);
+}
+
+/* Buy Me a Coffee */
+.contact-icons-row .contact-icon-link[href*="buymeacoffee"] {
+    background: linear-gradient(135deg, #ffdd00 0%, #ffb800 100%);
 }
 
 /* Dark theme adjustments */
-[data-theme="dark"] .contact-icon-link:nth-child(3) {
+[data-theme="dark"] .contact-icon-link:nth-child(2) {
     background: linear-gradient(135deg, #f6f8fa 0%, #e1e4e8 100%);
 }
 
-[data-theme="dark"] .contact-icon-link:nth-child(3) .contact-icon-svg {
+[data-theme="dark"] .contact-icon-link:nth-child(2) .contact-icon-svg {
     color: #24292e;
     stroke: #24292e;
 }
