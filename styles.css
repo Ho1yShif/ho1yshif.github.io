@@ -629,6 +629,7 @@ section {
     border-radius: 16px;
     transition: all 0.3s ease;
     overflow: hidden;
+    height: 100%;
 }
 
 .episode-card:hover {
@@ -658,6 +659,7 @@ section {
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    flex: 1;
 }
 
 .episode-content h5.episode-title {
@@ -710,9 +712,6 @@ section {
     background: linear-gradient(135deg, #159946, #14803d);
 }
 
-.episode-link:hover {
-    /* Removed motion effects, using color changes instead */
-}
 
 .episode-meta {
     display: flex;
