@@ -242,3 +242,4 @@ class ProjectsComponent extends BaseComponent {
 }
 
 export default ProjectsComponent;
+

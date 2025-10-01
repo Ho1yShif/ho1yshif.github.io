@@ -270,3 +270,4 @@ class SpeakingComponent extends BaseComponent {
 }
 
 export default SpeakingComponent;
+
