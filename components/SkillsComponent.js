@@ -434,3 +434,4 @@ class SkillsComponent extends BaseComponent {
 }
 
 export default SkillsComponent;
+

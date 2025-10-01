@@ -183,3 +183,4 @@ class CardComponent extends BaseComponent {
 }
 
 export default CardComponent;
+

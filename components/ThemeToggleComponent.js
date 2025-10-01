@@ -184,3 +184,4 @@ class ThemeToggleComponent extends BaseComponent {
 }
 
 export default ThemeToggleComponent;
+

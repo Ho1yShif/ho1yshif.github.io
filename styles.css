@@ -767,9 +767,6 @@ section {
     font-size: 1rem;
 }
 
-.support-btn.patreon {
-    background: linear-gradient(135deg, #ff424d, #f96854);
-}
 
 .support-btn.coffee {
     background: linear-gradient(135deg, #ffdd00, #ffb800);
@@ -1486,6 +1483,11 @@ section {
     position: relative;
 }
 
+/* Specific styling for Buy Me a Coffee icon */
+.contact-icon-link:nth-child(3) .contact-icon-svg {
+    width: 16px;
+}
+
 /* Individual icon colors */
 .contact-icon-link:nth-child(1) {
     background: linear-gradient(135deg, #0077b5 0%, #005885 100%); /* LinkedIn - Blue */
@@ -1495,22 +1497,15 @@ section {
     background: linear-gradient(135deg, #333 0%, #24292e 100%); /* GitHub - Dark */
 }
 
-.contact-icon-link:nth-child(3) {
-    background: linear-gradient(135deg, #ff424d 0%, #f96854 100%); /* Patreon */
-}
 
-.contact-icon-link:nth-child(4) {
+.contact-icon-link:nth-child(3) {
     background: linear-gradient(135deg, #ffdd00 0%, #ffb800 100%); /* Buy Me a Coffee */
 }
 
-.contact-icon-link:nth-child(5) {
+.contact-icon-link:nth-child(4) {
     background: linear-gradient(135deg, #ea4335 0%, #d33b2c 100%); /* Email - Red */
 }
 
-/* Patreon */
-.contact-icons-row .contact-icon-link[href*="patreon"] {
-    background: linear-gradient(135deg, #ff424d 0%, #f96854 100%);
-}
 
 /* Buy Me a Coffee */
 .contact-icons-row .contact-icon-link[href*="buymeacoffee"] {

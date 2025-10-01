@@ -286,14 +286,6 @@ class PodcastComponent extends BaseComponent {
     getDefaultSupportOptions() {
         return [
             {
-                name: "patreon",
-                displayName: "Support on Patreon",
-                url: "https://patreon.com/SaturdataPod",
-                icon: "assets/images/patreon.png",
-                iconWidth: 20,
-                iconHeight: 20
-            },
-            {
                 name: "coffee",
                 displayName: "Buy me a coffee", 
                 url: "https://buymeacoffee.com/saturdatapod",
@@ -376,3 +368,4 @@ class PodcastComponent extends BaseComponent {
 }
 
 export default PodcastComponent;
+
