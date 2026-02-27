@@ -729,6 +729,7 @@ a {
     margin-bottom: 1.5rem;
     padding-left: 80px;
     cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .experience-card::before {
