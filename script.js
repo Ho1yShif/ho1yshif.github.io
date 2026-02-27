@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function initializeApp() {
     renderProjects();
-    renderSpeaking();
+    renderAppearances();
     renderSkills();
     renderAcknowledgements();
     initializeSidebar();
@@ -95,7 +95,7 @@ function scrollToSection(sectionId) {
     const section = document.getElementById(sectionId);
     const content = document.getElementById('main-content');
     if (section && content) {
-        const offsetTop = section.offsetTop;
+        const offsetTop = Math.max(0, section.offsetTop - 32);
         content.scrollTo({ top: offsetTop, behavior: 'smooth' });
     }
 }
@@ -294,7 +294,7 @@ function initializeKeyboardNavigation() {
                 '2': 'about',
                 '3': 'experience',
                 '4': 'projects',
-                '5': 'speaking',
+                '5': 'appearances',
                 '6': 'skills',
             };
             const sectionId = sectionMap[e.key];
@@ -374,7 +374,10 @@ function extractGoogleDriveFileId(url) {
 function initializeExperience() {
     generateExperienceCards();
     setupExperienceInteractions();
-    setupExperienceResizeHandler();
+}
+
+function parseMarkdownLinks(text) {
+    return text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
 }
 
 function generateExperienceCards() {
@@ -398,7 +401,9 @@ function generateExperienceCards() {
                 </div>
             </div>
             <div class="experience-content" id="exp-content-${index}">
-                <div class="experience-description">${exp.description.split('\n').map(line => `<div class="experience-bullet">${line}</div>`).join('')}</div>
+                <div class="experience-content-inner">
+                    <div class="experience-description">${exp.description.split('\n').map(line => `<div class="experience-bullet">${parseMarkdownLinks(line)}</div>`).join('')}</div>
+                </div>
             </div>
         </div>
     `).join('');
@@ -443,64 +448,8 @@ function setupExperienceInteractions() {
 function toggleExperienceCard() {
     const card = this;
     const isExpanded = card.classList.contains('expanded');
-    const content = card.querySelector('.experience-content');
-
-    if (!isExpanded) {
-        content.style.maxHeight = 'none';
-        content.style.paddingTop = '1.25rem';
-        content.style.paddingBottom = '1.25rem';
-        content.style.overflow = 'hidden';
-        content.offsetHeight;
-        const actualHeight = content.scrollHeight;
-        const bufferHeight = actualHeight + 15;
-
-        content.style.maxHeight = '0';
-        content.style.paddingTop = '0';
-        content.style.paddingBottom = '0';
-        content.offsetHeight;
-
-        requestAnimationFrame(() => {
-            content.style.maxHeight = `${bufferHeight}px`;
-            content.style.paddingTop = '1.25rem';
-            content.style.paddingBottom = '1.25rem';
-        });
-
-        card.classList.add('expanded');
-        card.setAttribute('aria-expanded', 'true');
-    } else {
-        const currentHeight = content.scrollHeight;
-        content.style.maxHeight = `${currentHeight}px`;
-        content.offsetHeight; // force reflow so browser has a from-value
-        requestAnimationFrame(() => {
-            content.style.maxHeight = '0';
-            content.style.paddingTop = '0';
-            content.style.paddingBottom = '0';
-        });
-        card.classList.remove('expanded');
-        card.setAttribute('aria-expanded', 'false');
-    }
-}
-
-function setupExperienceResizeHandler() {
-    let resizeTimeout;
-    window.addEventListener('resize', () => {
-        clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(() => {
-            recalculateExpandedCards();
-        }, 150);
-    });
-}
-
-function recalculateExpandedCards() {
-    document.querySelectorAll('.experience-card.expanded').forEach(card => {
-        const content = card.querySelector('.experience-content');
-        content.style.maxHeight = 'none';
-        content.style.paddingTop = '1.25rem';
-        content.style.paddingBottom = '1.25rem';
-        content.offsetHeight;
-        const actualHeight = content.scrollHeight;
-        content.style.maxHeight = `${actualHeight + 15}px`;
-    });
+    card.classList.toggle('expanded');
+    card.setAttribute('aria-expanded', String(!isExpanded));
 }
 
 // ===== RENDER FUNCTIONS =====
@@ -538,20 +487,20 @@ function renderProjects() {
     `).join('');
 }
 
-function renderSpeaking() {
-    const container = document.getElementById('speaking-list');
+function renderAppearances() {
+    const container = document.getElementById('appearances-list');
     if (!container) return;
 
-    container.innerHTML = SpeakingData.map(item => `
-        <div class="speaking-card">
-            <div class="speaking-header">
-                <div class="speaking-badge ${item.badgeClass}">${item.badge}</div>
-                <h3 class="speaking-title">${item.title}</h3>
-                <p class="speaking-role">${item.role}</p>
-                <p class="speaking-organization">${item.organization}</p>
+    container.innerHTML = AppearancesData.map(item => `
+        <div class="appearances-card">
+            <div class="appearances-header">
+                <div class="appearances-badge ${item.badgeClass}">${item.badge}</div>
+                <h3 class="appearances-title">${item.title}</h3>
+                <p class="appearances-role">${item.role}</p>
+                <p class="appearances-organization">${item.organization}</p>
             </div>
-            <div class="speaking-content">
-                <p class="speaking-description">${item.description}</p>
+            <div class="appearances-content">
+                <p class="appearances-description">${item.description}</p>
                 ${item.links.length ? `
                 <div class="project-icon-links">
                     ${item.links.map(link => `

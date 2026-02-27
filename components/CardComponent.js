@@ -2,7 +2,7 @@ import BaseComponent from './BaseComponent.js';
 
 /**
  * Base Card Component
- * Reusable card component for projects, speaking engagements, etc.
+ * Reusable card component for projects, appearances engagements, etc.
  */
 class CardComponent extends BaseComponent {
     static get defaultOptions() {

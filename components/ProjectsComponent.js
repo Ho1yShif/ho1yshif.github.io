@@ -127,7 +127,7 @@ class ProjectsComponent extends BaseComponent {
             },
             {
                 title: "Lua Learning",
-                description: "Interactive educational game teaching Lua programming concepts, reaching 8.4M+ visits and helping developers learn programming fundamentals.",
+                description: "Interactive educational game teaching Lua programming concepts, reaching 9M+ visits and helping developers learn programming fundamentals.",
                 image: "assets/images/lua-learning.webp",
                 links: [
                     { text: "Play", url: "https://www.roblox.com/games/1334669864/Lua-Learning" }

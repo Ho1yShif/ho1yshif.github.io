@@ -20,7 +20,7 @@ const ExperiencesData = [
     from_date: "Jan 2023",
     to_date: "Present",
     description:
-      `● Designing curriculum and writing lessons for <a href="https://www.roblox.com/games/1334669864/Lua-Learning" target="_blank" rel="noopener noreferrer">Lua Learning</a>, an award-winning Roblox game with 8.4M+ visits and 150K+ monthly active users`,
+      `● Designing curriculum and writing lessons for <a href="https://www.roblox.com/games/1334669864/Lua-Learning" target="_blank" rel="noopener noreferrer">Lua Learning</a>, an award-winning Roblox game with 9M+ visits and 150K+ monthly active users`,
   },
   {
     organization: "LinkedIn",
@@ -56,7 +56,17 @@ const ExperiencesData = [
 ● Ensured 96% CSAT and <1 minute response time while consulting on data models and infrastructure`,
   },
   {
-    organization: "Annalect Nissan",
+    organization: "Podium Education",
+    role: "Data Programming Team Lead",
+    from_date: "May 2023",
+    to_date: "Aug 2023",
+    description:
+      `● Facilitated classroom instruction to college students, teaching introductory SQL, Tableau, and Python for practical data science
+● Graded weekly coding assignments and final projects for a diverse cohort of 60+ students, demonstrating strong organizational skills
+● Provided personalized one-on-one guidance during office hours to address individual learning needs`,
+  },
+  {
+    organization: "Annalect",
     role: "Data Scientist",
     from_date: "Jan 2023",
     to_date: "May 2024",
@@ -108,16 +118,7 @@ const ExperiencesData = [
 ● Automated Looker dashboard based on attribution model to report WoW and MoM channel metrics
 ● Tested gift products to determine their impact on customer churn and drive stakeholder decisions`,
   },
-  {
-    organization: "Podium Education",
-    role: "Data Programming Team Lead",
-    from_date: "May 2023",
-    to_date: "Aug 2023",
-    description:
-      `● Facilitated classroom instruction to college students, teaching introductory SQL, Tableau, and Python for practical data science
-● Graded weekly coding assignments and final projects for a diverse cohort of 60+ students, demonstrating strong organizational skills
-● Provided personalized one-on-one guidance during office hours to address individual learning needs`,
-  },
+
   {
     organization: "Cross River Bank",
     role: "Data Technology Analyst Intern",
@@ -141,6 +142,24 @@ const ProjectsData = [
     image: 'assets/images/oop-thumbnail.jpeg',
     links: [
       { type: 'youtube', url: 'https://www.youtube.com/watch?v=yBFu9HxiD88&list=PLID58IQe16nFgbHGRCj5QEXKUpVIilpDN&index=28', tooltip: 'watch' }
+    ]
+  },
+  {
+    title: 'Wrapped for LinkedIn',
+    description: 'Wrapped for LinkedIn transforms your LinkedIn activity into an engaging, visual story inspired by Spotify Wrapped. Discover your most impactful posts, understand who\'s engaging with your content, and check out your year in review.',
+    image: 'assets/images/wrapped.png',
+    links: [
+      { type: 'website', url: 'https://wrappedforlinkedin.onrender.com/', tooltip: 'visit' },
+      { type: 'github', url: 'https://github.com/render-examples/wrapped-for-linkedin', tooltip: 'github'}
+    ]
+  },
+  {
+    title: 'Trender',
+    description: 'Trender is a distributed analytics platform that tracks trending GitHub repositories across Python, TypeScript/Next.js, Go, and the Render ecosystem. Uses Render Workflows for parallel processing and a 3-layer data pipeline (Raw → Staging → Analytics) for high-performance analytics.',
+    image: 'assets/images/trender.png',
+    links: [
+      { type: 'website', url: 'https://trender.onrender.com/', tooltip: 'visit' },
+      { type: 'github', url: 'https://github.com/render-examples/trender', tooltip: 'github'}
     ]
   },
   {
@@ -169,14 +188,6 @@ const ProjectsData = [
     ]
   },
   {
-    title: 'Shakespeare GPT',
-    description: "AI language model trained on Shakespeare's works to generate text in Shakespearean style, demonstrating natural language processing capabilities.",
-    image: 'assets/images/shakespeare.webp',
-    links: [
-      { type: 'github', url: 'https://github.com/Ho1yShif/nanogpt', tooltip: 'github' }
-    ]
-  },
-  {
     title: 'New Jersey Flood Prediction',
     description: 'Predictive model for flood risk assessment in New Jersey using historical weather data and geographic information systems.',
     image: 'assets/images/flood-nj.jpeg',
@@ -186,8 +197,29 @@ const ProjectsData = [
   }
 ];
 
-// Speaking Data
-const SpeakingData = [
+// Appearances Data
+const AppearancesData = [
+  {
+    badge: 'Podcast',
+    badgeClass: 'podcast',
+    title: 'Saturdata',
+    role: 'Co-host',
+    organization: 'Saturdata',
+    description: 'The community podcast humanizing the data world for the next generation.',
+    links: [
+      { type: 'spotify', url: 'https://open.spotify.com/episode/0D3BaBiRxY4hAAGB1IITfQ?si=a6a09d5af2ea4da9', tooltip: 'spotify' },
+      { type: 'youtube', url: 'https://www.youtube.com/watch?v=lWFpcwcSmQg&themeRefresh=1', tooltip: 'youtube' }
+    ]
+  },
+  {
+    badge: 'Conference',
+    badgeClass: 'Conference',
+    title: 'AI Coding Summit',
+    role: 'Workshop speaker',
+    organization: 'GitNation',
+    description: "A hands-on workshop deploying a real-time voice agent to the cloud using LiveKit and Render, covering architecture, environment configuration, debugging, and scaling.",
+    links: []
+  },
   {
     badge: 'Finance',
     badgeClass: 'finance',

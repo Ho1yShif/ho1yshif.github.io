@@ -2,58 +2,58 @@ import BaseComponent from './BaseComponent.js';
 import CardComponent from './CardComponent.js';
 
 /**
- * Speaking Card Component
- * Specialized card for speaking engagements
+ * Appearances Card Component
+ * Specialized card for appearances engagements
  */
-class SpeakingCard extends CardComponent {
+class AppearancesCard extends CardComponent {
     getTemplate() {
         const { title, role, organization, description, badge, link, links, featured } = this.data;
         
         const renderLinks = () => {
             if (links && links.length > 0) {
-                return `<div class="speaking-platform-links">
+                return `<div class="appearances-platform-links">
                     ${links.map(l => `
-                        <a href="${l.url}" class="speaking-platform-link" target="_blank" rel="noopener noreferrer" aria-label="${l.text}">
-                            <img src="${l.logo}" alt="${l.text}" class="speaking-platform-logo" />
+                        <a href="${l.url}" class="appearances-platform-link" target="_blank" rel="noopener noreferrer" aria-label="${l.text}">
+                            <img src="${l.logo}" alt="${l.text}" class="appearances-platform-logo" />
                         </a>
                     `).join('')}
                 </div>`;
             }
             if (link) {
-                return `<a href="${link.url}" class="speaking-link" target="_blank" rel="noopener noreferrer">${link.text}</a>`;
+                return `<a href="${link.url}" class="appearances-link" target="_blank" rel="noopener noreferrer">${link.text}</a>`;
             }
             return '';
         };
 
         return `
-            <div class="speaking-header">
-                ${badge ? `<div class="speaking-badge ${badge.type}">${badge.text}</div>` : ''}
-                <h3 class="speaking-title">${title}</h3>
-                <p class="speaking-role">${role}</p>
-                ${organization ? `<p class="speaking-organization">${organization}</p>` : ''}
+            <div class="appearances-header">
+                ${badge ? `<div class="appearances-badge ${badge.type}">${badge.text}</div>` : ''}
+                <h3 class="appearances-title">${title}</h3>
+                <p class="appearances-role">${role}</p>
+                ${organization ? `<p class="appearances-organization">${organization}</p>` : ''}
             </div>
-            <div class="speaking-content">
-                <p class="speaking-description">${description}</p>
+            <div class="appearances-content">
+                <p class="appearances-description">${description}</p>
                 ${renderLinks()}
             </div>
         `;
     }
     
     getCardClasses() {
-        const classes = ['speaking-card'];
+        const classes = ['appearances-card'];
         if (this.data.featured) classes.push('featured');
         return classes.join(' ');
     }
 }
 
 /**
- * Speaking Component
- * Manages the speaking engagements section
+ * Appearances Component
+ * Manages the appearances engagements section
  */
-class SpeakingComponent extends BaseComponent {
+class AppearancesComponent extends BaseComponent {
     static get defaultOptions() {
         return {
-            gridSelector: '.speaking-grid',
+            gridSelector: '.appearances-grid',
             engagements: [],
             animateOnScroll: true,
             groupByType: false
@@ -62,7 +62,7 @@ class SpeakingComponent extends BaseComponent {
     
     init() {
         this.grid = this.find(this.options.gridSelector);
-        this.speakingCards = [];
+        this.appearancesCards = [];
         this.engagements = this.options.engagements.length > 0 ? this.options.engagements : this.getDefaultEngagements();
         
         super.init();
@@ -82,31 +82,31 @@ class SpeakingComponent extends BaseComponent {
         
         // Clear existing content
         this.grid.innerHTML = '';
-        this.speakingCards = [];
+        this.appearancesCards = [];
         
         // Group by type if enabled
         const engagementsToRender = this.options.groupByType 
             ? this.groupEngagementsByType() 
             : this.engagements;
         
-        // Create speaking cards
+        // Create appearances cards
         engagementsToRender.forEach((engagement, index) => {
             const cardContainer = document.createElement('div');
-            const speakingCard = new SpeakingCard(cardContainer, {
+            const appearancesCard = new AppearancesCard(cardContainer, {
                 data: engagement,
                 clickable: !!engagement.link,
                 animateOnHover: true
             });
             
-            this.speakingCards.push(speakingCard);
+            this.appearancesCards.push(appearancesCard);
             this.grid.appendChild(cardContainer);
             
             // Forward card events
-            speakingCard.element.addEventListener('card-click', (e) => {
+            appearancesCard.element.addEventListener('card-click', (e) => {
                 this.emit('engagement-click', { engagement, index, ...e.detail });
             });
             
-            speakingCard.element.addEventListener('card-link-click', (e) => {
+            appearancesCard.element.addEventListener('card-link-click', (e) => {
                 this.emit('engagement-link-click', { engagement, index, ...e.detail });
             });
         });
@@ -208,7 +208,7 @@ class SpeakingComponent extends BaseComponent {
     
     handleEngagementClick(e) {
         const { engagement } = e.detail;
-        console.log('Speaking engagement clicked:', engagement);
+        console.log('Appearances engagement clicked:', engagement);
         
         // Default behavior - navigate to link if available
         if (engagement.link) {
@@ -217,7 +217,7 @@ class SpeakingComponent extends BaseComponent {
     }
     
     handleEngagementLinkClick(e) {
-        console.log('Speaking engagement link clicked:', e.detail.href);
+        console.log('Appearances engagement link clicked:', e.detail.href);
         // Add analytics tracking here if needed
     }
     
@@ -236,7 +236,7 @@ class SpeakingComponent extends BaseComponent {
         });
         
         setTimeout(() => {
-            this.speakingCards.forEach(card => {
+            this.appearancesCards.forEach(card => {
                 card.element.classList.add('fade-in');
                 observer.observe(card.element);
             });
@@ -297,5 +297,5 @@ class SpeakingComponent extends BaseComponent {
     }
 }
 
-export default SpeakingComponent;
+export default AppearancesComponent;
 

@@ -376,6 +376,10 @@ body {
     color: var(--primary-color);
 }
 
+.status-item .live-icon {
+    color: var(--primary-color);
+}
+
 .status-dot {
     width: 6px;
     height: 6px;
@@ -818,24 +822,37 @@ a {
 .date-full   { display: inline; }
 
 .experience-content {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1), padding-top 0.35s cubic-bezier(0.4, 0, 0.2, 1), padding-bottom 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     background: var(--bg-card);
     border-radius: 0 0 var(--radius) var(--radius);
     border: 1px solid var(--border-color);
     border-top: none;
-    padding: 0 1.25rem;
 }
 
 .experience-card.expanded .experience-content {
-    padding-bottom: 1.25rem;
+    grid-template-rows: 1fr;
+}
+
+.experience-content-inner {
+    min-height: 0;
+    overflow: hidden;
 }
 
 .experience-description {
     color: var(--text-secondary);
     font-size: 0.9rem;
-    margin-bottom: 1rem;
+    padding: 0.75rem 1.25rem 1rem;
+}
+
+.experience-description a {
+    color: var(--syntax-string);
+    text-decoration: none;
+}
+
+.experience-description a:hover {
+    text-decoration: underline;
 }
 
 .experience-bullet {
@@ -844,7 +861,7 @@ a {
 }
 
 .experience-bullet:first-child {
-    padding-top: 0.75rem;
+    padding-top: 0;
 }
 
 
@@ -885,7 +902,7 @@ a {
 .project-icon-links {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 1rem;
     margin-top: 0.75rem;
 }
 
@@ -974,11 +991,11 @@ a {
 /* =============================
    SPEAKING SECTION
    ============================= */
-.speaking {
+.appearances {
     background: var(--bg-color);
 }
 
-.speaking-grid {
+.appearances-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 1.25rem;
@@ -986,7 +1003,7 @@ a {
     margin: 0 auto;
 }
 
-.speaking-card {
+.appearances-card {
     background: var(--bg-card);
     border-radius: var(--radius);
     border: 1px solid var(--border-color);
@@ -996,16 +1013,16 @@ a {
     flex-direction: column;
 }
 
-.speaking-card.featured {
+.appearances-card.featured {
     border-color: var(--primary-color);
 }
 
-.speaking-header {
+.appearances-header {
     padding: 1.25rem 1.25rem 0.75rem;
     position: relative;
 }
 
-.speaking-badge {
+.appearances-badge {
     display: inline-block;
     padding: 0.2rem 0.6rem;
     border-radius: var(--radius);
@@ -1017,15 +1034,15 @@ a {
     font-family: 'JetBrains Mono', monospace;
 }
 
-.speaking-badge.upcoming    { background: rgba(35,186,125,0.12); color: var(--primary-color); }
-.speaking-badge.high-impact { background: rgba(201,50,0,0.12); color: var(--accent-color); }
-.speaking-badge.education   { background: rgba(35,186,125,0.12); color: var(--primary-color); }
-.speaking-badge.communication { background: rgba(199,146,234,0.15); color: var(--syntax-keyword); }
-.speaking-badge.finance     { background: rgba(150,150,180,0.15); color: var(--text-secondary); }
-.speaking-badge.diversity   { background: rgba(177,128,252,0.12); color: var(--syntax-keyword); }
-.speaking-badge.podcast     { background: rgba(35,186,125,0.12); color: var(--primary-color); }
+.appearances-badge.upcoming    { background: rgba(35,186,125,0.12); color: var(--primary-color); }
+.appearances-badge.high-impact { background: rgba(201,50,0,0.12); color: var(--accent-color); }
+.appearances-badge.education   { background: rgba(35,186,125,0.12); color: var(--primary-color); }
+.appearances-badge.communication { background: rgba(199,146,234,0.15); color: var(--syntax-keyword); }
+.appearances-badge.finance     { background: rgba(150,150,180,0.15); color: var(--text-secondary); }
+.appearances-badge.diversity   { background: rgba(177,128,252,0.12); color: var(--syntax-keyword); }
+.appearances-badge.podcast     { background: rgba(35,186,125,0.12); color: var(--primary-color); }
 
-.speaking-title {
+.appearances-title {
     font-size: 1rem;
     font-weight: 600;
     color: #ffffff;
@@ -1035,7 +1052,7 @@ a {
     font-style: normal;
 }
 
-.speaking-role {
+.appearances-role {
     font-size: 0.875rem;
     color: var(--text-secondary);
     font-weight: 500;
@@ -1043,7 +1060,7 @@ a {
     font-style: italic;
 }
 
-.speaking-organization {
+.appearances-organization {
     font-size: 0.8rem;
     color: var(--primary-color);
     font-weight: 400;
@@ -1051,26 +1068,25 @@ a {
     font-family: 'JetBrains Mono', monospace;
 }
 
-.speaking-content {
+.appearances-content {
     padding: 0 1.25rem 1.25rem;
     flex: 1;
     display: flex;
     flex-direction: column;
 }
 
-.speaking-content .project-icon-links {
+.appearances-content .project-icon-links {
     margin-top: auto;
-    gap: 1rem;
 }
 
-.speaking-description {
+.appearances-description {
     color: var(--text-secondary);
     line-height: 1.6;
     font-size: 0.875rem;
     margin-bottom: 0.75rem;
 }
 
-.speaking-link {
+.appearances-link {
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
@@ -1086,12 +1102,12 @@ a {
     transition: background 0.15s ease;
 }
 
-.speaking-link:hover {
+.appearances-link:hover {
     background: var(--primary-hover);
     color: #060709;
 }
 
-.speaking-link::after {
+.appearances-link::after {
     content: '↗';
     font-size: 0.7rem;
 }
@@ -1348,15 +1364,15 @@ a {
     color: var(--primary-color);
 }
 
-/* Speaking platform icon links */
-.speaking-platform-links {
+/* Appearances platform icon links */
+.appearances-platform-links {
     display: flex;
-    gap: 0.5rem;
+    gap: 1rem;
     margin-top: 0.5rem;
     flex-wrap: wrap;
 }
 
-.speaking-platform-link {
+.appearances-platform-link {
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
@@ -1370,16 +1386,16 @@ a {
     color: white;
 }
 
-.speaking-platform-link.youtube { background: #ff0000; }
-.speaking-platform-link.youtube:hover { opacity: 0.85; color: white; }
-.speaking-platform-link.spotify { background: #1DB954; }
-.speaking-platform-link.spotify:hover { opacity: 0.85; color: white; }
-.speaking-platform-link.website {
+.appearances-platform-link.youtube { background: #ff0000; }
+.appearances-platform-link.youtube:hover { opacity: 0.85; color: white; }
+.appearances-platform-link.spotify { background: #1DB954; }
+.appearances-platform-link.spotify:hover { opacity: 0.85; color: white; }
+.appearances-platform-link.website {
     background: var(--bg-muted);
     border: 1px solid var(--border-color);
     color: var(--text-secondary);
 }
-.speaking-platform-link.website:hover { color: var(--text-primary); }
+.appearances-platform-link.website:hover { color: var(--text-primary); }
 
 /* =============================
    UTILITY CLASSES
@@ -1468,7 +1484,7 @@ a {
     }
 
     .projects-grid,
-    .speaking-grid {
+    .appearances-grid {
         grid-template-columns: 1fr;
     }
 

@@ -144,7 +144,7 @@ class NavigationComponent extends BaseComponent {
                 '2': 'about', 
                 '3': 'experience',
                 '4': 'projects',
-                '5': 'speaking',
+                '5': 'appearances',
                 '6': 'podcast',
                 '7': 'skills',
                 '8': 'connect'
