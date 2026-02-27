@@ -511,8 +511,6 @@ section:last-of-type {
 .sql-keyword {
     color: var(--syntax-keyword);
     font-weight: 600;
-    margin-right: 0.4em;
-    margin-left: 0.35em;
 }
 
 .sql-indent {
