@@ -1,4 +1,4 @@
-// Experience data is now loaded from experience-data.js
+// All data is loaded from data.js
 
 // DOM Content Loaded Event
 document.addEventListener('DOMContentLoaded', function() {
@@ -6,6 +6,10 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function initializeApp() {
+    renderProjects();
+    renderSpeaking();
+    renderSkills();
+    renderAcknowledgements();
     initializeSidebar();
     initializeIDETabs();
     initializeMobileSidebar();
@@ -196,7 +200,7 @@ function initializeTypingEffect() {
     const el = document.getElementById('typed-role');
     if (!el) return;
 
-    const roles = ['DevRel', 'Data Scientist', 'Technical Writer', 'Educator'];
+    const roles = TypingRoles;
     let roleIndex = 0;
     let charIndex = 0;
     let isDeleting = false;
@@ -377,7 +381,7 @@ function generateExperienceCards() {
     const timeline = document.getElementById('experience-timeline');
     if (!timeline) return;
 
-    const experienceHTML = ExperienceData.map((exp, index) => `
+    const experienceHTML = ExperiencesData.map((exp, index) => `
         <div class="experience-card${exp.logo ? ' has-logo' : ''}" data-index="${index}" role="button" tabindex="0"
              aria-expanded="false" aria-controls="exp-content-${index}">
             ${exp.logo ? `<img src="${exp.logo}" class="experience-logo" alt="${exp.organization} logo">` : ''}
@@ -497,6 +501,95 @@ function recalculateExpandedCards() {
         const actualHeight = content.scrollHeight;
         content.style.maxHeight = `${actualHeight + 15}px`;
     });
+}
+
+// ===== RENDER FUNCTIONS =====
+
+const _ICONS = {
+    github: `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" stroke="currentColor" stroke-width="2"/></svg>`,
+    website: `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" stroke="currentColor" stroke-width="2"/><polyline points="15,3 21,3 21,9" stroke="currentColor" stroke-width="2"/><line x1="10" y1="14" x2="21" y2="3" stroke="currentColor" stroke-width="2"/></svg>`,
+    publication: `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="currentColor" stroke-width="2"/><polyline points="14,2 14,8 20,8" stroke="currentColor" stroke-width="2"/><line x1="16" y1="13" x2="8" y2="13" stroke="currentColor" stroke-width="2"/><line x1="16" y1="17" x2="8" y2="17" stroke="currentColor" stroke-width="2"/></svg>`,
+    youtube:  `<img src="assets/logos/youtube.png" height="16" alt="YouTube" style="display:block;width:auto;" />`,
+    spotify:  `<img src="assets/logos/spotify.png" height="16" alt="Spotify" style="display:block;width:auto;" />`,
+    roblox:   `<img src="assets/logos/roblox.png" height="16" alt="Roblox" style="display:block;width:auto;" />`
+};
+
+function renderProjects() {
+    const container = document.getElementById('projects-list');
+    if (!container) return;
+
+    container.innerHTML = ProjectsData.map(project => `
+        <div class="project-card">
+            <div class="project-image">
+                <img src="${project.image}" alt="${project.title}" />
+            </div>
+            <div class="project-content">
+                <h3 class="project-title">${project.title}</h3>
+                <p class="project-description">${project.description}</p>
+                <div class="project-icon-links">
+                    ${project.links.map(link => `
+                        <a href="${link.url}" class="project-icon-link" target="_blank" rel="noopener noreferrer" data-tooltip="${link.tooltip}">
+                            ${_ICONS[link.type] || ''}
+                        </a>
+                    `).join('')}
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+function renderSpeaking() {
+    const container = document.getElementById('speaking-list');
+    if (!container) return;
+
+    container.innerHTML = SpeakingData.map(item => `
+        <div class="speaking-card">
+            <div class="speaking-header">
+                <div class="speaking-badge ${item.badgeClass}">${item.badge}</div>
+                <h3 class="speaking-title">${item.title}</h3>
+                <p class="speaking-role">${item.role}</p>
+                <p class="speaking-organization">${item.organization}</p>
+            </div>
+            <div class="speaking-content">
+                <p class="speaking-description">${item.description}</p>
+                ${item.links.length ? `
+                <div class="project-icon-links">
+                    ${item.links.map(link => `
+                        <a href="${link.url}" class="project-icon-link" target="_blank" rel="noopener noreferrer" data-tooltip="${link.tooltip}">
+                            ${_ICONS[link.type] || ''}
+                        </a>
+                    `).join('')}
+                </div>` : ''}
+            </div>
+        </div>
+    `).join('');
+}
+
+function renderSkills() {
+    const container = document.getElementById('skills-table-body');
+    if (!container) return;
+
+    container.innerHTML = SkillsData.map((row, i) => `
+        <div class="skills-result-row">
+            <span class="skills-row-num">${i + 1}</span>
+            <span class="skills-row-category">${row.category}</span>
+            <div class="skills-row-tags">
+                ${row.tags.map(tag => `<span class="skill-tag">${tag}</span>`).join('')}
+            </div>
+        </div>
+    `).join('');
+}
+
+function renderAcknowledgements() {
+    const container = document.getElementById('ack-table-body');
+    if (!container) return;
+
+    container.innerHTML = AcknowledgementsData.map((person, i) => `
+        <div class="ack-result-row">
+            <span class="ack-row-num">${i + 1}</span>
+            <a href="${person.url}" class="ack-result-name" target="_blank" rel="noopener noreferrer">${person.name}</a>
+        </div>
+    `).join('');
 }
 
 // ===== ERROR HANDLING =====

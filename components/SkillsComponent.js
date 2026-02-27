@@ -260,7 +260,7 @@ class SkillsComponent extends BaseComponent {
                 title: "Developer relations",
                 skills: [
                     "Product management",
-                    "UX design",
+                    "UI/UX design",
                     "Marketing",
                     "Content creation",
                     "Community building",

@@ -548,21 +548,6 @@ section:last-of-type {
     50% { opacity: 0; }
 }
 
-/* result-key / result-value reused by acknowledgements */
-.result-key {
-    color: var(--text-muted);
-    min-width: 80px;
-    flex-shrink: 0;
-}
-
-.result-value {
-    color: var(--syntax-string);
-}
-
-.result-value.number {
-    color: var(--syntax-number);
-}
-
 /* Global link color */
 a {
     color: var(--primary-color);
@@ -1111,35 +1096,6 @@ a {
     font-size: 0.7rem;
 }
 
-.speaking-platform-links {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    margin-top: 0.75rem;
-}
-
-.speaking-platform-link {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 2rem;
-    height: 2rem;
-    border-radius: var(--radius);
-    transition: opacity 0.2s ease, transform 0.2s ease;
-}
-
-.speaking-platform-link:hover {
-    opacity: 0.75;
-    transform: translateY(-1px);
-}
-
-.speaking-platform-logo {
-    width: 1.5rem;
-    height: 1.5rem;
-    object-fit: contain;
-}
-
-
 /* =============================
    SKILLS SECTION
    ============================= */
@@ -1279,21 +1235,6 @@ a {
     margin: 0 auto;
 }
 
-.acknowledgments-title {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--text-muted);
-    margin-bottom: 0.75rem;
-    font-family: 'JetBrains Mono', monospace;
-}
-
-.acknowledgments-intro {
-    font-size: 0.8rem;
-    color: var(--text-muted);
-    margin-bottom: 0.75rem;
-    line-height: 1.5;
-}
-
 .acknowledgments-list {
     display: flex;
     justify-content: center;
@@ -1386,6 +1327,7 @@ a {
 
 .ack-result-name:hover {
     color: var(--primary-color);
+    text-decoration: underline;
 }
 
 .ack-result-role {
