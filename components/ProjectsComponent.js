@@ -137,7 +137,7 @@ class ProjectsComponent extends BaseComponent {
             {
                 title: "Shakespeare GPT",
                 description: "AI language model trained on Shakespeare's works to generate text in Shakespearean style, demonstrating natural language processing capabilities.",
-                image: "assets/images/shakespeare.webp",
+                image: "assets/images/projects/shakespeare.webp",
                 links: [
                     { text: "GitHub", url: "https://github.com/Ho1yShif/nanogpt" }
                 ],

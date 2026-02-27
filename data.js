@@ -134,137 +134,155 @@ const ExperiencesData = [
 // Typing effect roles
 const TypingRoles = ['DevRel', 'Data Scientist', 'Technical Writer', 'Educator'];
 
-// Projects Data
-const ProjectsData = [
+// Link type → tooltip text (used by renderProjects and renderAppearances)
+const LINK_TOOLTIPS = {
+  github:      'github',
+  website:     'visit',
+  publication: 'publication',
+  linkedin:    'linkedin',
+  youtube:     'youtube',
+  spotify:     'spotify',
+  roblox:      'roblox'
+};
+
+// Portfolio items — projects (type: 'project') and appearances (type: 'appearance')
+const PortfolioData = [
+  // ── Projects ──────────────────────────────────────────────────────────────
   {
+    type: 'project',
     title: 'Crash Course: Code and Programming for Beginners',
     description: 'Educational video series teaching Java programming with 180K+ views, making complex programming concepts accessible to a broad audience.',
-    image: 'assets/images/oop-thumbnail.jpeg',
+    image: 'assets/images/projects/oop-thumbnail.jpeg',
     links: [
-      { type: 'youtube', url: 'https://www.youtube.com/watch?v=yBFu9HxiD88&list=PLID58IQe16nFgbHGRCj5QEXKUpVIilpDN&index=28', tooltip: 'watch' }
+      { type: 'youtube', url: 'https://www.youtube.com/watch?v=yBFu9HxiD88&list=PLID58IQe16nFgbHGRCj5QEXKUpVIilpDN&index=28' }
     ]
   },
   {
+    type: 'project',
     title: 'Wrapped for LinkedIn',
-    description: 'Wrapped for LinkedIn transforms your LinkedIn activity into an engaging, visual story inspired by Spotify Wrapped. Discover your most impactful posts, understand who\'s engaging with your content, and check out your year in review.',
-    image: 'assets/images/wrapped.png',
+    description: "Wrapped for LinkedIn transforms your LinkedIn activity into an engaging, visual story inspired by Spotify Wrapped. Discover your most impactful posts, understand who's engaging with your content, and check out your year in review.",
+    image: 'assets/images/projects/wrapped.png',
     links: [
-      { type: 'website', url: 'https://wrappedforlinkedin.onrender.com/', tooltip: 'visit' },
-      { type: 'github', url: 'https://github.com/render-examples/wrapped-for-linkedin', tooltip: 'github'}
+      { type: 'website', url: 'https://wrappedforlinkedin.onrender.com/' },
+      { type: 'github',  url: 'https://github.com/render-examples/wrapped-for-linkedin' }
     ]
   },
   {
+    type: 'project',
     title: 'Trender',
     description: 'Trender is a distributed analytics platform that tracks trending GitHub repositories across Python, TypeScript/Next.js, Go, and the Render ecosystem. Uses Render Workflows for parallel processing and a 3-layer data pipeline (Raw → Staging → Analytics) for high-performance analytics.',
-    image: 'assets/images/trender.png',
+    image: 'assets/images/projects/trender.png',
     links: [
-      { type: 'website', url: 'https://trender.onrender.com/', tooltip: 'visit' },
-      { type: 'github', url: 'https://github.com/render-examples/trender', tooltip: 'github'}
+      { type: 'website', url: 'https://trender.onrender.com/' },
+      { type: 'github',  url: 'https://github.com/render-examples/trender' }
     ]
   },
   {
+    type: 'project',
     title: 'DataLemur',
     description: 'SQL & data analytics interview practice and preparation platform for the data community.',
-    image: 'assets/images/datalemur.webp',
+    image: 'assets/images/projects/datalemur.webp',
     links: [
-      { type: 'website', url: 'https://datalemur.com', tooltip: 'visit' }
+      { type: 'website', url: 'https://datalemur.com' }
     ]
   },
   {
+    type: 'project',
     title: 'Classification of Fall Out Boy Eras',
     description: 'Academic research project applying machine learning techniques to classify different musical eras of Fall Out Boy, published in Rutgers academic journal.',
-    image: 'assets/images/fob.jpg',
+    image: 'assets/images/projects/fob.jpg',
     links: [
-      { type: 'github', url: 'https://github.com/Ho1yShif/FOB_LR_public', tooltip: 'github' },
-      { type: 'publication', url: 'https://arestyrurj.libraries.rutgers.edu/index.php/arestyrurj/article/view/232', tooltip: 'publication' }
+      { type: 'github',      url: 'https://github.com/Ho1yShif/FOB_LR_public' },
+      { type: 'publication', url: 'https://arestyrurj.libraries.rutgers.edu/index.php/arestyrurj/article/view/232' }
     ]
   },
   {
+    type: 'project',
     title: 'Lua Learning',
     description: 'Interactive educational game teaching Lua programming concepts, reaching 8.4M+ visits and helping developers learn programming fundamentals.',
-    image: 'assets/images/lua-learning.webp',
+    image: 'assets/images/projects/lua-learning.webp',
     links: [
-      { type: 'roblox', url: 'https://www.roblox.com/games/1334669864/Lua-Learning', tooltip: 'roblox' }
+      { type: 'roblox', url: 'https://www.roblox.com/games/1334669864/Lua-Learning' }
     ]
   },
   {
+    type: 'project',
     title: 'New Jersey Flood Prediction',
     description: 'Predictive model for flood risk assessment in New Jersey using historical weather data and geographic information systems.',
-    image: 'assets/images/flood-nj.jpeg',
+    image: 'assets/images/projects/flood-nj.jpeg',
     links: [
-      { type: 'github', url: 'https://github.com/Ho1yShif/cgi_flood_prediction_mitigation', tooltip: 'github' }
+      { type: 'github', url: 'https://github.com/Ho1yShif/cgi_flood_prediction_mitigation' }
     ]
-  }
-];
+  },
 
-// Appearances Data
-const AppearancesData = [
+  // ── Appearances ───────────────────────────────────────────────────────────
   {
-    badge: 'Podcast',
-    badgeClass: 'podcast',
+    type: 'appearance',
+    badge: 'podcast',
     title: 'Saturdata',
     role: 'Co-host',
     organization: 'Saturdata',
-    description: 'The community podcast humanizing the data world for the next generation.',
+    description: 'Co-hosted the community podcast humanizing the data world for the next generation.',
     links: [
-      { type: 'spotify', url: 'https://open.spotify.com/episode/0D3BaBiRxY4hAAGB1IITfQ?si=a6a09d5af2ea4da9', tooltip: 'spotify' },
-      { type: 'youtube', url: 'https://www.youtube.com/watch?v=lWFpcwcSmQg&themeRefresh=1', tooltip: 'youtube' }
+      { type: 'youtube',  url: 'https://www.youtube.com/watch?v=lWFpcwcSmQg&themeRefresh=1' },
+      { type: 'spotify',  url: 'https://open.spotify.com/episode/0D3BaBiRxY4hAAGB1IITfQ?si=a6a09d5af2ea4da9' },
+      { type: 'linkedin', url: 'https://www.linkedin.com/company/saturdata/' }
     ]
   },
   {
-    badge: 'Conference',
-    badgeClass: 'Conference',
+    type: 'appearance',
+    badge: 'conference',
     title: 'AI Coding Summit',
     role: 'Workshop speaker',
     organization: 'GitNation',
-    description: "A hands-on workshop deploying a real-time voice agent to the cloud using LiveKit and Render, covering architecture, environment configuration, debugging, and scaling.",
+    description: "Led a hands-on workshop deploying a real-time voice agent to the cloud using LiveKit and Render, covering architecture, environment configuration, debugging, and scaling.",
     links: []
   },
   {
-    badge: 'Finance',
-    badgeClass: 'finance',
+    type: 'appearance',
+    badge: 'finance',
     title: 'AI in Finance Forum',
     role: 'Featured speaker',
     organization: 'CFO Leadership',
-    description: "Fireside chat exploring the role of the CFO as an AI leader\u2014someone who doesn't need to build models but does need to lead transformation. Attendees gain clarity on building credibility, spotting opportunities, and bringing their teams along for the AI journey.",
+    description: "Led a fireside chat exploring the role of the CFO as an AI leader—someone who doesn't need to build models but does need to lead transformation. Attendees gained clarity on building credibility, spotting opportunities, and bringing their teams along for the AI journey.",
     links: []
   },
   {
-    badge: 'DEI',
-    badgeClass: 'diversity',
+    type: 'appearance',
+    badge: 'dei',
     title: 'Women in Data Boston',
     role: 'Featured speaker',
-    organization: 'Sigma Computing & Women in Data community',
+    organization: 'Sigma Computing',
     description: 'Delivered keynote on data leadership and women in tech, resulting in all data leader prospects moving forward in the marketing funnel.',
     links: []
   },
   {
-    badge: 'Podcast',
-    badgeClass: 'podcast',
+    type: 'appearance',
+    badge: 'podcast',
     title: 'Data Science for Finance Professionals',
     role: 'Podcast guest',
     organization: 'FP&A Today',
     description: 'Explored how data science transforms financial analysis and strategic decision-making, highlighting practical applications and the critical role of data-driven insights in modern corporate finance.',
     links: [
-      { type: 'spotify', url: 'https://open.spotify.com/episode/0D3BaBiRxY4hAAGB1IITfQ?si=a6a09d5af2ea4da9', tooltip: 'spotify' },
-      { type: 'youtube', url: 'https://www.youtube.com/watch?v=lWFpcwcSmQg&themeRefresh=1', tooltip: 'youtube' }
+      { type: 'youtube', url: 'https://www.youtube.com/watch?v=lWFpcwcSmQg&themeRefresh=1' },
+      { type: 'spotify', url: 'https://open.spotify.com/episode/0D3BaBiRxY4hAAGB1IITfQ?si=a6a09d5af2ea4da9' }
     ]
   },
   {
-    badge: 'Podcast',
-    badgeClass: 'podcast',
+    type: 'appearance',
+    badge: 'podcast',
     title: 'How to Pivot to a Career in Tech',
     role: 'Podcast guest',
     organization: 'Ready Set Do',
     description: 'Shared the journey from music to data and how to pivot to a career in tech in general, emphasizing the importance of practical applications and identifying the most impactful skills to learn.',
     links: [
-      { type: 'spotify', url: 'https://readysetdo.xyz/episodes/how-to-pivot-to-a-career-in-te', tooltip: 'spotify' },
-      { type: 'youtube', url: 'https://youtu.be/JtF8b7k8nO8?si=Vhj1iO7c9itUbx_3', tooltip: 'youtube' }
+      { type: 'youtube', url: 'https://youtu.be/JtF8b7k8nO8?si=Vhj1iO7c9itUbx_3' },
+      { type: 'spotify', url: 'https://readysetdo.xyz/episodes/how-to-pivot-to-a-career-in-te' }
     ]
   },
   {
-    badge: 'Education',
-    badgeClass: 'education',
+    type: 'appearance',
+    badge: 'education',
     title: 'Mastering Science Communication',
     role: 'Science communicator',
     organization: 'Midwest Big Data Hub',
@@ -272,20 +290,20 @@ const AppearancesData = [
     links: []
   },
   {
-    badge: 'Education',
-    badgeClass: 'education',
+    type: 'appearance',
+    badge: 'education',
     title: 'Computer Science Career Pathways',
-    role: 'Industry panelist',
+    role: 'Panelist',
     organization: 'Carlmont High School',
     description: 'Participated in career panel for AP Computer Science students alongside Meta engineers, sharing insights on industry pathways, daily responsibilities in tech roles, and practical advice for transitioning from academics to professional software development.',
     links: []
   },
   {
-    badge: 'Education',
-    badgeClass: 'education',
+    type: 'appearance',
+    badge: 'education',
     title: 'CS Education & AP Exam Success',
     role: 'Educational advisor',
-    organization: 'Bay Area Computer Science Council',
+    organization: 'BayCSC',
     description: 'Delivered comprehensive workshop on computer science education pathways and AP exam preparation strategies, providing Bay Area students with practical study techniques, career guidance, and industry insights to maximize academic and professional success.',
     links: []
   }
@@ -298,9 +316,10 @@ const SkillsData = [
   { category: 'Data platforms', tags: ['Snowflake', 'Redshift', 'Databricks', 'BigQuery', 'dbt'] },
   { category: 'Business intelligence', tags: ['Excel', 'Looker', 'Tableau', 'Sigma', 'A/B testing'] },
   { category: 'Cloud', tags: ['GCP', 'AWS', 'Azure', 'Git', 'GitHub', 'GitHub Actions', 'CI/CD', 'DevOps', 'DataOps'] },
+  { category: 'Product', tags: ['Product management', 'UI/UX design', 'Figma', 'Roadmapping', 'User research'] },
+  { category: 'Developer relations', tags: ['Marketing', 'Social media', 'Community building', 'Public speaking', 'Demos'] },
   { category: 'Mathematics', tags: ['Statistics', 'A/B Testing', 'Linear algebra', 'Time series'] },
-  { category: 'Documentation', tags: ['Jira', 'Confluence', 'Docusaurus', 'ReadMe'] },
-  { category: 'Product & growth', tags: ['Product management', 'UX design', 'Marketing', 'Content creation', 'Community building'] },
+  { category: 'Documentation', tags: ['Linear', 'Jira', 'Confluence', 'Docusaurus', 'Mintlify'] },
   { category: 'Interests', tags: ['Cooking & baking', 'Travel', 'Reading', 'Music', 'Podcasting', 'Voice acting', 'Audio engineering'] }
 ];
 

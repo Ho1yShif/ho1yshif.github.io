@@ -29,7 +29,7 @@ class AppearancesCard extends CardComponent {
             <div class="appearances-header">
                 ${badge ? `<div class="appearances-badge ${badge.type}">${badge.text}</div>` : ''}
                 <h3 class="appearances-title">${title}</h3>
-                <p class="appearances-role">${role}</p>
+
                 ${organization ? `<p class="appearances-organization">${organization}</p>` : ''}
             </div>
             <div class="appearances-content">
@@ -120,8 +120,8 @@ class AppearancesComponent extends BaseComponent {
                 description: "The podcast by and for the data community that's humanizing the data world.",
                 badge: { text: "Podcast", type: "podcast" },
                 links: [
-                    { text: "YouTube", url: "https://www.youtube.com/@SaturdataPod", logo: "assets/logos/youtube.png" },
-                    { text: "Spotify", url: "https://open.spotify.com/show/5QolhKm1jDZzVuHO0S9ZBo", logo: "assets/logos/spotify.png" }
+                    { text: "YouTube", url: "https://www.youtube.com/@SaturdataPod", logo: "assets/images/logos/youtube.png" },
+                    { text: "Spotify", url: "https://open.spotify.com/show/5QolhKm1jDZzVuHO0S9ZBo", logo: "assets/images/logos/spotify.png" }
                 ],
                 featured: true,
                 category: "podcast"
@@ -145,7 +145,7 @@ class AppearancesComponent extends BaseComponent {
             },
             {
                 title: "Data Science for Finance Professionals",
-                role: "Podcast guest",
+                role: "Guest",
                 organization: "FP&A Today",
                 description: "Explored how data science transforms financial analysis and strategic decision-making, highlighting practical applications and the critical role of data-driven insights in modern corporate finance.",
                 badge: { text: "Podcast", type: "podcast" },
@@ -154,7 +154,7 @@ class AppearancesComponent extends BaseComponent {
             },
             {
                 title: "How to Pivot to a Career in Tech",
-                role: "Podcast guest",
+                role: "Guest",
                 organization: "Ready Set Do", 
                 description: "Shared the journey from music to data and how to pivot to a career in tech in general, emphasizing the importance of practical applications and identifying the most impactful skills to learn.",
                 badge: { text: "Podcast", type: "podcast" },
@@ -171,7 +171,7 @@ class AppearancesComponent extends BaseComponent {
             },
             {
                 title: "Computer Science Career Pathways",
-                role: "Industry panelist",
+                role: "Panelist",
                 organization: "Carlmont High School",
                 description: "Participated in career panel for AP Computer Science students alongside Meta engineers, sharing insights on industry pathways, daily responsibilities in tech roles, and practical advice for transitioning from academics to professional software development.",
                 badge: { text: "Education", type: "education" },

@@ -455,19 +455,28 @@ function toggleExperienceCard() {
 // ===== RENDER FUNCTIONS =====
 
 const _ICONS = {
-    github: `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" stroke="currentColor" stroke-width="2"/></svg>`,
-    website: `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" stroke="currentColor" stroke-width="2"/><polyline points="15,3 21,3 21,9" stroke="currentColor" stroke-width="2"/><line x1="10" y1="14" x2="21" y2="3" stroke="currentColor" stroke-width="2"/></svg>`,
+    github:      `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" stroke="currentColor" stroke-width="2"/></svg>`,
+    website:     `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" stroke="currentColor" stroke-width="2"/><polyline points="15,3 21,3 21,9" stroke="currentColor" stroke-width="2"/><line x1="10" y1="14" x2="21" y2="3" stroke="currentColor" stroke-width="2"/></svg>`,
     publication: `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="currentColor" stroke-width="2"/><polyline points="14,2 14,8 20,8" stroke="currentColor" stroke-width="2"/><line x1="16" y1="13" x2="8" y2="13" stroke="currentColor" stroke-width="2"/><line x1="16" y1="17" x2="8" y2="17" stroke="currentColor" stroke-width="2"/></svg>`,
-    youtube:  `<img src="assets/logos/youtube.png" height="16" alt="YouTube" style="display:block;width:auto;" />`,
-    spotify:  `<img src="assets/logos/spotify.png" height="16" alt="Spotify" style="display:block;width:auto;" />`,
-    roblox:   `<img src="assets/logos/roblox.png" height="16" alt="Roblox" style="display:block;width:auto;" />`
+    linkedin:    `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" stroke="currentColor" stroke-width="2"/><rect x="2" y="9" width="4" height="12" stroke="currentColor" stroke-width="2"/><circle cx="4" cy="4" r="2" stroke="currentColor" stroke-width="2"/></svg>`,
+    youtube:     `<img src="assets/images/logos/youtube.png" height="16" alt="YouTube" style="display:block;width:auto;" />`,
+    spotify:     `<img src="assets/images/logos/spotify.png" height="16" alt="Spotify" style="display:block;width:auto;" />`,
+    roblox:      `<img src="assets/images/logos/roblox.png" height="16" alt="Roblox" style="display:block;width:auto;" />`
 };
+
+function renderLinks(links) {
+    return links.map(link => `
+        <a href="${link.url}" class="project-icon-link" target="_blank" rel="noopener noreferrer" data-tooltip="${LINK_TOOLTIPS[link.type] || link.type}">
+            ${_ICONS[link.type] || ''}
+        </a>
+    `).join('');
+}
 
 function renderProjects() {
     const container = document.getElementById('projects-list');
     if (!container) return;
 
-    container.innerHTML = ProjectsData.map(project => `
+    container.innerHTML = PortfolioData.filter(i => i.type === 'project').map(project => `
         <div class="project-card">
             <div class="project-image">
                 <img src="${project.image}" alt="${project.title}" />
@@ -476,11 +485,7 @@ function renderProjects() {
                 <h3 class="project-title">${project.title}</h3>
                 <p class="project-description">${project.description}</p>
                 <div class="project-icon-links">
-                    ${project.links.map(link => `
-                        <a href="${link.url}" class="project-icon-link" target="_blank" rel="noopener noreferrer" data-tooltip="${link.tooltip}">
-                            ${_ICONS[link.type] || ''}
-                        </a>
-                    `).join('')}
+                    ${renderLinks(project.links)}
                 </div>
             </div>
         </div>
@@ -491,23 +496,19 @@ function renderAppearances() {
     const container = document.getElementById('appearances-list');
     if (!container) return;
 
-    container.innerHTML = AppearancesData.map(item => `
+    container.innerHTML = PortfolioData.filter(i => i.type === 'appearance').map(item => `
         <div class="appearances-card">
             <div class="appearances-header">
-                <div class="appearances-badge ${item.badgeClass}">${item.badge}</div>
+                <div class="appearances-badge" data-badge="${item.badge}">${item.badge}</div>
                 <h3 class="appearances-title">${item.title}</h3>
-                <p class="appearances-role">${item.role}</p>
+
                 <p class="appearances-organization">${item.organization}</p>
             </div>
             <div class="appearances-content">
                 <p class="appearances-description">${item.description}</p>
                 ${item.links.length ? `
                 <div class="project-icon-links">
-                    ${item.links.map(link => `
-                        <a href="${link.url}" class="project-icon-link" target="_blank" rel="noopener noreferrer" data-tooltip="${link.tooltip}">
-                            ${_ICONS[link.type] || ''}
-                        </a>
-                    `).join('')}
+                    ${renderLinks(item.links)}
                 </div>` : ''}
             </div>
         </div>
@@ -520,7 +521,7 @@ function renderSkills() {
 
     container.innerHTML = SkillsData.map((row, i) => `
         <div class="skills-result-row">
-            <span class="skills-row-num">${i + 1}</span>
+            <span class="result-row-num">${i + 1}</span>
             <span class="skills-row-category">${row.category}</span>
             <div class="skills-row-tags">
                 ${row.tags.map(tag => `<span class="skill-tag">${tag}</span>`).join('')}
@@ -535,7 +536,7 @@ function renderAcknowledgements() {
 
     container.innerHTML = AcknowledgementsData.map((person, i) => `
         <div class="ack-result-row">
-            <span class="ack-row-num">${i + 1}</span>
+            <span class="result-row-num">${i + 1}</span>
             <a href="${person.url}" class="ack-result-name" target="_blank" rel="noopener noreferrer">${person.name}</a>
         </div>
     `).join('');
