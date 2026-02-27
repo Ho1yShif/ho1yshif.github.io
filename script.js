@@ -6,145 +6,174 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function initializeApp() {
-    // Initialize all components
-    initializeNavigation();
-    initializeThemeToggle();
+    initializeSidebar();
+    initializeIDETabs();
+    initializeMobileSidebar();
+    initializeScrollObserver();
     initializeAnimations();
-    initializeContactForm();
-    initializeSmoothScrolling();
     initializeResumeDownload();
     initializeExperience();
-    updateCopyrightYear();
+    initializeKeyboardNavigation();
+    initializeTypingEffect();
 }
 
-// Navigation functionality
-function initializeNavigation() {
-    const mobileMenu = document.getElementById('mobile-menu');
-    const navMenu = document.getElementById('nav-menu');
-    const navLinks = document.querySelectorAll('.nav-link');
+// ===== SIDEBAR =====
+function initializeSidebar() {
+    const sidebarLinks = document.querySelectorAll('.tree-child[data-section]');
 
-    // Mobile menu toggle
-    mobileMenu.addEventListener('click', function() {
-        mobileMenu.classList.toggle('active');
-        navMenu.classList.toggle('active');
-    });
-
-    // Close mobile menu when clicking on a link
-    navLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            mobileMenu.classList.remove('active');
-            navMenu.classList.remove('active');
-        });
-    });
-
-    // Update active navigation link based on scroll position
-    window.addEventListener('scroll', updateActiveNavLink);
-    
-    // Named function for navbar background updates
-    function updateNavbarBackground() {
-        const navbar = document.getElementById('navbar');
-        if (window.scrollY > 50) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
-    }
-    
-    // Navbar background on scroll
-    window.addEventListener('scroll', updateNavbarBackground);
-    
-    // Make the function available globally so theme toggle can call it
-    window.updateNavbarBackground = updateNavbarBackground;
-}
-
-function updateActiveNavLink() {
-    const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.nav-link');
-    
-    let current = '';
-    
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop - 100;
-        const sectionHeight = section.clientHeight;
-        
-        if (window.pageYOffset >= sectionTop && 
-            window.pageYOffset < sectionTop + sectionHeight) {
-            current = section.getAttribute('id');
-        }
-    });
-    
-    navLinks.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href') === `#${current}`) {
-            link.classList.add('active');
-        }
-    });
-}
-
-// Theme toggle functionality
-function initializeThemeToggle() {
-    const themeToggle = document.getElementById('theme-toggle');
-    const themeIcon = themeToggle.querySelector('.theme-icon');
-    
-    // Check for saved theme or default to light mode
-    const savedTheme = localStorage.getItem('theme') || 'light';
-    document.documentElement.setAttribute('data-theme', savedTheme);
-    updateThemeIcon(savedTheme, themeIcon);
-    
-    themeToggle.addEventListener('click', function() {
-        const currentTheme = document.documentElement.getAttribute('data-theme');
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-        
-        document.documentElement.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
-        updateThemeIcon(newTheme, themeIcon);
-        
-        // Update navbar background to match new theme
-        if (window.updateNavbarBackground) {
-            window.updateNavbarBackground();
-        }
-    });
-}
-
-function updateThemeIcon(theme, iconElement) {
-    const sunIcon = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/>
-        <path d="M12 1v2m0 18v2M4.2 4.2l1.4 1.4m12.8 12.8l1.4 1.4M1 12h2m18 0h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4" stroke="currentColor" stroke-width="2"/>
-    </svg>`;
-    const moonIcon = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2" fill="currentColor"/>
-    </svg>`;
-    iconElement.innerHTML = theme === 'dark' ? sunIcon : moonIcon;
-}
-
-// Smooth scrolling for navigation links and CTA buttons
-function initializeSmoothScrolling() {
-    const scrollLinks = document.querySelectorAll('a[href^="#"]');
-    
-    scrollLinks.forEach(link => {
+    sidebarLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
-            
-            const targetId = this.getAttribute('href').substring(1);
-            const targetSection = document.getElementById(targetId);
-            
-            if (targetSection) {
-                const offsetTop = targetSection.offsetTop - 80; // Account for fixed navbar
-                
-                window.scrollTo({
-                    top: offsetTop,
-                    behavior: 'smooth'
-                });
+            const sectionId = this.getAttribute('data-section');
+            scrollToSection(sectionId);
+            setActiveSidebarItem(sectionId);
+            setActiveTab(sectionId);
+
+            // Close sidebar on mobile
+            if (window.innerWidth < 1024) {
+                closeMobileSidebar();
             }
         });
     });
 }
 
-// Intersection Observer for animations
+function setActiveSidebarItem(sectionId) {
+    document.querySelectorAll('.tree-child').forEach(item => {
+        item.classList.remove('active');
+    });
+    const active = document.querySelector(`.tree-child[data-section="${sectionId}"]`);
+    if (active) active.classList.add('active');
+}
+
+// ===== FOLDER TOGGLE =====
+function toggleFolder(folderId) {
+    const children = document.getElementById(folderId);
+    if (!children) return;
+
+    const chevronId = folderId.replace('-folder', '-chevron');
+    const chevron = document.getElementById(chevronId);
+
+    children.classList.toggle('open');
+    if (chevron) {
+        chevron.classList.toggle('open');
+    }
+}
+
+// ===== TAB BAR =====
+function initializeIDETabs() {
+    const tabs = document.querySelectorAll('.ide-tab[data-section]');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', function(e) {
+            e.preventDefault();
+            const sectionId = this.getAttribute('data-section');
+            scrollToSection(sectionId);
+            setActiveTab(sectionId);
+            setActiveSidebarItem(sectionId);
+        });
+    });
+}
+
+function setActiveTab(sectionId) {
+    document.querySelectorAll('.ide-tab').forEach(tab => {
+        tab.classList.remove('active');
+    });
+    const active = document.querySelector(`.ide-tab[data-section="${sectionId}"]`);
+    if (active) {
+        active.classList.add('active');
+        // Scroll tab into view in the tab bar
+        active.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
+    }
+}
+
+// ===== SCROLL TO SECTION =====
+function scrollToSection(sectionId) {
+    const section = document.getElementById(sectionId);
+    const content = document.getElementById('main-content');
+    if (section && content) {
+        const offsetTop = section.offsetTop;
+        content.scrollTo({ top: offsetTop, behavior: 'smooth' });
+    }
+}
+
+// ===== INTERSECTION OBSERVER (sync active state on scroll) =====
+function initializeScrollObserver() {
+    const content = document.getElementById('main-content');
+    if (!content) return;
+
+    const sections = document.querySelectorAll('section[id]');
+    const sectionIds = Array.from(sections).map(s => s.id);
+
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    if (id && sectionIds.includes(id)) {
+                        setActiveSidebarItem(id);
+                        setActiveTab(id);
+
+                        // Update mobile header title
+                        const mobileTitle = document.querySelector('.mobile-header-title');
+                        if (mobileTitle) {
+                            mobileTitle.textContent = `shifra_db / ${id}.sql`;
+                        }
+                    }
+                }
+            });
+        },
+        {
+            root: content,
+            threshold: 0.35,
+        }
+    );
+
+    sections.forEach(section => observer.observe(section));
+}
+
+// ===== MOBILE SIDEBAR =====
+function initializeMobileSidebar() {
+    const hamburger = document.getElementById('mobile-hamburger');
+    const sidebar = document.getElementById('ide-sidebar');
+    const overlay = document.getElementById('sidebar-overlay');
+
+    if (hamburger) {
+        hamburger.addEventListener('click', function() {
+            if (sidebar.classList.contains('open')) {
+                closeMobileSidebar();
+            } else {
+                openMobileSidebar();
+            }
+        });
+    }
+
+    if (overlay) {
+        overlay.addEventListener('click', function() {
+            closeMobileSidebar();
+        });
+    }
+}
+
+function openMobileSidebar() {
+    const sidebar = document.getElementById('ide-sidebar');
+    const overlay = document.getElementById('sidebar-overlay');
+    sidebar.classList.add('open');
+    overlay.classList.add('active');
+}
+
+function closeMobileSidebar() {
+    const sidebar = document.getElementById('ide-sidebar');
+    const overlay = document.getElementById('sidebar-overlay');
+    sidebar.classList.remove('open');
+    overlay.classList.remove('active');
+}
+
+// ===== ANIMATIONS =====
 function initializeAnimations() {
     const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
+        threshold: 0.08,
+        rootMargin: '0px 0px -30px 0px',
+        root: document.getElementById('main-content'),
     };
 
     const observer = new IntersectionObserver(function(entries) {
@@ -155,208 +184,189 @@ function initializeAnimations() {
         });
     }, observerOptions);
 
-    // Observe all sections and cards
-    const elementsToObserve = document.querySelectorAll('section, .project-card, .value-item');
+    const elementsToObserve = document.querySelectorAll('.value-item, .episode-card, .experience-card');
     elementsToObserve.forEach(element => {
         element.classList.add('fade-in');
         observer.observe(element);
     });
 }
 
+// ===== TYPING EFFECT =====
+function initializeTypingEffect() {
+    const el = document.getElementById('typed-role');
+    if (!el) return;
 
+    const roles = ['DevRel', 'Data Scientist', 'Technical Writer', 'Educator'];
+    let roleIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
 
+    const typeSpeed = 80;
+    const deleteSpeed = 45;
+    const pauseAfterType = 1800;
+    const pauseAfterDelete = 400;
 
+    function tick() {
+        const currentRole = roles[roleIndex];
 
-// Contact form functionality
-// Contact form functionality - Updated for icon-only layout
-function initializeContactForm() {
-    // Contact form has been removed in favor of direct contact icons
-    // Add any analytics tracking for icon clicks if needed
-    const contactIcons = document.querySelectorAll('.contact-icon-link');
-    
-    contactIcons.forEach(icon => {
-        icon.addEventListener('click', function() {
-            // Optional: Track contact method usage
-            const href = this.getAttribute('href');
-            console.log('Contact method used:', href);
-            
-            // Add subtle click animation
-            this.style.transform = 'translateY(-3px) scale(0.95)';
-            setTimeout(() => {
-                this.style.transform = '';
-            }, 150);
-        });
-    });
+        if (!isDeleting) {
+            el.textContent = currentRole.slice(0, charIndex + 1);
+            charIndex++;
+            if (charIndex === currentRole.length) {
+                isDeleting = true;
+                setTimeout(tick, pauseAfterType);
+                return;
+            }
+            setTimeout(tick, typeSpeed);
+        } else {
+            el.textContent = currentRole.slice(0, charIndex - 1);
+            charIndex--;
+            if (charIndex === 0) {
+                isDeleting = false;
+                roleIndex = (roleIndex + 1) % roles.length;
+                setTimeout(tick, pauseAfterDelete);
+                return;
+            }
+            setTimeout(tick, deleteSpeed);
+        }
+    }
+
+    tick();
 }
 
-
-
+// ===== NOTIFICATION =====
 function showNotification(message, type = 'info') {
     const notification = document.createElement('div');
     notification.textContent = message;
-    
+
     const colors = {
-        success: '#10b981',
-        error: '#ef4444', 
-        info: '#3b82f6'
+        success: '#23bb7d',
+        error:   '#c93200',
+        info:    '#1f2227'
     };
-    
+
+    const textColors = {
+        success: '#060709',
+        error:   '#dadee5',
+        info:    '#dadee5'
+    };
+
     notification.style.cssText = `
         position: fixed;
-        top: 100px;
+        top: 60px;
         right: 20px;
-        padding: 1rem 1.5rem;
-        border-radius: 0.5rem;
-        color: white;
-        font-weight: 500;
+        padding: 0.75rem 1.25rem;
+        border-radius: 0.375rem;
+        color: ${textColors[type] || textColors.info};
+        font-weight: 600;
         z-index: 10000;
-        max-width: 400px;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        max-width: 360px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.8rem;
         background: ${colors[type] || colors.info};
+        border: 1px solid #1f2227;
         transform: translateX(100%);
         transition: transform 0.3s ease;
     `;
-    
+
     document.body.appendChild(notification);
-    
-    setTimeout(() => notification.style.transform = 'translateX(0)', 100);
+    setTimeout(() => notification.style.transform = 'translateX(0)', 50);
     setTimeout(() => {
         notification.style.transform = 'translateX(100%)';
-        setTimeout(() => document.body.removeChild(notification), 300);
-    }, 5000);
+        setTimeout(() => {
+            if (document.body.contains(notification)) {
+                document.body.removeChild(notification);
+            }
+        }, 300);
+    }, 4000);
 }
 
-
-
-
-
-
-
-// Keyboard navigation support
+// ===== KEYBOARD NAVIGATION =====
 function initializeKeyboardNavigation() {
     document.addEventListener('keydown', function(e) {
-        // Alt + number keys for section navigation
         if (e.altKey) {
             const sectionMap = {
                 '1': 'home',
                 '2': 'about',
                 '3': 'experience',
                 '4': 'projects',
-                '5': 'skills',
-                '6': 'connect'
+                '5': 'speaking',
+                '6': 'skills',
             };
-            
             const sectionId = sectionMap[e.key];
             if (sectionId) {
                 e.preventDefault();
-                const section = document.getElementById(sectionId);
-                if (section) {
-                    section.scrollIntoView({ behavior: 'smooth' });
-                }
+                scrollToSection(sectionId);
+                setActiveSidebarItem(sectionId);
+                setActiveTab(sectionId);
             }
         }
-        
-        // Escape key to close mobile menu
+
         if (e.key === 'Escape') {
-            const mobileMenu = document.getElementById('mobile-menu');
-            const navMenu = document.getElementById('nav-menu');
-            
-            if (navMenu.classList.contains('active')) {
-                mobileMenu.classList.remove('active');
-                navMenu.classList.remove('active');
-            }
+            closeMobileSidebar();
         }
     });
 }
 
-// Initialize additional features when DOM is ready
-document.addEventListener('DOMContentLoaded', function() {
-    // Optional features
-    initializeKeyboardNavigation();
-});
-
-
-
-// Error handling
-window.addEventListener('error', function(e) {
-    console.error('An error occurred:', e.error);
-    // You could implement error reporting here
-});
-
-// Resume download functionality
+// ===== RESUME DOWNLOAD =====
 function initializeResumeDownload() {
-    const resumeButton = document.getElementById('resume-download');
-    
-    if (resumeButton) {
-        resumeButton.addEventListener('click', function(e) {
-            e.preventDefault();
-            downloadResumeFromGoogleDrive();
-        });
-    }
+    ['resume-download', 'sidebar-resume-download'].forEach(function(id) {
+        const btn = document.getElementById(id);
+        if (btn) {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                downloadResumeFromGoogleDrive();
+            });
+        }
+    });
 }
 
 function downloadResumeFromGoogleDrive() {
-    // Google Drive sharing URL
     const googleDriveShareUrl = 'https://docs.google.com/document/d/1KBnF9S5ot0XMx3fBoncZMl690q3BDPhMZGImKiMNIPQ/edit?usp=sharing';
-    
-    // Extract the file ID from the Google Drive URL
     const fileId = extractGoogleDriveFileId(googleDriveShareUrl);
-    
+
     if (fileId) {
-        // Convert to direct download URL for PDF export
         const downloadUrl = `https://docs.google.com/document/d/${fileId}/export?format=pdf`;
-        
-        // Show loading notification
         showNotification('Preparing resume download...', 'info');
-        
-        // Create a temporary link and trigger download
-        const link = document.createElement('a');
-        link.href = downloadUrl;
-        link.download = 'Shifra_Williams_Resume.pdf';
-        link.target = '_blank';
-        
-        // Append to body, click, and remove
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        
-        // Show success notification after a brief delay
-        setTimeout(() => {
-            showNotification('Resume download started!', 'success');
-        }, 1000);
+
+        fetch(downloadUrl)
+            .then(response => {
+                if (!response.ok) throw new Error('Download failed');
+                return response.blob();
+            })
+            .then(blob => {
+                const objectUrl = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = objectUrl;
+                link.download = 'Shifra_Williams_Resume.pdf';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(objectUrl);
+                showNotification('Resume download started!', 'success');
+            })
+            .catch(() => {
+                showNotification('Error: Unable to download resume.', 'error');
+            });
     } else {
         showNotification('Error: Unable to process resume download.', 'error');
     }
 }
 
 function extractGoogleDriveFileId(url) {
-    // Extract file ID from various Google Drive URL formats
     const patterns = [
         /\/document\/d\/([a-zA-Z0-9-_]+)/,
         /id=([a-zA-Z0-9-_]+)/,
         /\/file\/d\/([a-zA-Z0-9-_]+)/
     ];
-    
     for (const pattern of patterns) {
         const match = url.match(pattern);
-        if (match) {
-            return match[1];
-        }
+        if (match) return match[1];
     }
-    
     return null;
 }
 
-// Dynamic copyright year update
-function updateCopyrightYear() {
-    const currentYearElement = document.getElementById('current-year');
-    if (currentYearElement) {
-        const currentYear = new Date().getFullYear();
-        currentYearElement.textContent = currentYear;
-    }
-}
-
-// Experience section functionality
+// ===== EXPERIENCE SECTION =====
 function initializeExperience() {
     generateExperienceCards();
     setupExperienceInteractions();
@@ -366,10 +376,11 @@ function initializeExperience() {
 function generateExperienceCards() {
     const timeline = document.getElementById('experience-timeline');
     if (!timeline) return;
-    
+
     const experienceHTML = ExperienceData.map((exp, index) => `
-        <div class="experience-card" data-index="${index}" role="button" tabindex="0" 
+        <div class="experience-card${exp.logo ? ' has-logo' : ''}" data-index="${index}" role="button" tabindex="0"
              aria-expanded="false" aria-controls="exp-content-${index}">
+            ${exp.logo ? `<img src="${exp.logo}" class="experience-logo" alt="${exp.organization} logo">` : ''}
             <div class="experience-header">
                 <div class="experience-meta">
                     <div class="experience-title">
@@ -381,57 +392,47 @@ function generateExperienceCards() {
                         <span class="date-mobile">${formatDateForMobile(exp.from_date)} - ${formatDateForMobile(exp.to_date)}</span>
                     </div>
                 </div>
-                <div class="expand-indicator">
-                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M4 2L8 6L4 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </div>
             </div>
             <div class="experience-content" id="exp-content-${index}">
-                <div class="experience-description">${exp.description}</div>
+                <div class="experience-description">${exp.description.split('\n').map(line => `<div class="experience-bullet">${line}</div>`).join('')}</div>
             </div>
         </div>
     `).join('');
-    
+
     timeline.innerHTML = experienceHTML;
 }
 
 function formatDateForMobile(dateString) {
-    // Convert long month names to short abbreviations for mobile
     const monthMap = {
-        'January': 'Jan',
-        'February': 'Feb',
-        'March': 'Mar',
-        'April': 'Apr',
-        'May': 'May',
-        'June': 'Jun',
-        'July': 'Jul',
-        'August': 'Aug',
-        'September': 'Sep',
-        'October': 'Oct',
-        'November': 'Nov',
-        'December': 'Dec'
+        'January': 'Jan', 'February': 'Feb', 'March': 'Mar', 'April': 'Apr',
+        'May': 'May', 'June': 'Jun', 'July': 'Jul', 'August': 'Aug',
+        'September': 'Sep', 'October': 'Oct', 'November': 'Nov', 'December': 'Dec'
     };
-    
     let formatted = dateString;
     for (const [full, short] of Object.entries(monthMap)) {
         formatted = formatted.replace(full, short);
     }
-    
     return formatted;
 }
 
 function setupExperienceInteractions() {
-    const cards = document.querySelectorAll('.experience-card');
-    
-    cards.forEach(card => {
-        card.addEventListener('click', toggleExperienceCard);
-        card.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
+    const timeline = document.getElementById('experience-timeline');
+    if (!timeline) return;
+
+    timeline.addEventListener('click', function(e) {
+        if (e.target.closest('a')) return;
+        const card = e.target.closest('.experience-card');
+        if (card) toggleExperienceCard.call(card, e);
+    });
+
+    timeline.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+            const card = e.target.closest('.experience-card');
+            if (card) {
                 e.preventDefault();
                 toggleExperienceCard.call(card, e);
             }
-        });
+        }
     });
 }
 
@@ -439,54 +440,38 @@ function toggleExperienceCard() {
     const card = this;
     const isExpanded = card.classList.contains('expanded');
     const content = card.querySelector('.experience-content');
-    const description = content.querySelector('.experience-description');
-    
-    // Optional: Close other cards (accordion behavior)
-    // document.querySelectorAll('.experience-card.expanded').forEach(otherCard => {
-    //     if (otherCard !== card) {
-    //         otherCard.classList.remove('expanded');
-    //         otherCard.setAttribute('aria-expanded', 'false');
-    //     }
-    // });
-    
+
     if (!isExpanded) {
-        // Temporarily expand to measure actual content height
         content.style.maxHeight = 'none';
-        content.style.paddingTop = '1.5rem';
-        content.style.paddingBottom = '1.5rem';
-        content.style.overflow = 'hidden'; // Prevent content from affecting layout during measurement
-        
-        // Force a layout recalculation
+        content.style.paddingTop = '1.25rem';
+        content.style.paddingBottom = '1.25rem';
+        content.style.overflow = 'hidden';
         content.offsetHeight;
-        
-        // Get the actual height including padding
         const actualHeight = content.scrollHeight;
-        
-        // Add a buffer to account for increased margin and prevent content cutoff
         const bufferHeight = actualHeight + 15;
-        
-        // Reset to collapsed state
+
         content.style.maxHeight = '0';
         content.style.paddingTop = '0';
         content.style.paddingBottom = '0';
-        
-        // Force reflow
         content.offsetHeight;
-        
-        // Animate to the calculated height
+
         requestAnimationFrame(() => {
             content.style.maxHeight = `${bufferHeight}px`;
-            content.style.paddingTop = '1.5rem';
-            content.style.paddingBottom = '1.5rem';
+            content.style.paddingTop = '1.25rem';
+            content.style.paddingBottom = '1.25rem';
         });
-        
+
         card.classList.add('expanded');
         card.setAttribute('aria-expanded', 'true');
     } else {
-        // Collapse the card
-        content.style.maxHeight = '0';
-        content.style.paddingTop = '0';
-        content.style.paddingBottom = '0';
+        const currentHeight = content.scrollHeight;
+        content.style.maxHeight = `${currentHeight}px`;
+        content.offsetHeight; // force reflow so browser has a from-value
+        requestAnimationFrame(() => {
+            content.style.maxHeight = '0';
+            content.style.paddingTop = '0';
+            content.style.paddingBottom = '0';
+        });
         card.classList.remove('expanded');
         card.setAttribute('aria-expanded', 'false');
     }
@@ -494,9 +479,7 @@ function toggleExperienceCard() {
 
 function setupExperienceResizeHandler() {
     let resizeTimeout;
-    
     window.addEventListener('resize', () => {
-        // Debounce resize events to avoid excessive recalculations
         clearTimeout(resizeTimeout);
         resizeTimeout = setTimeout(() => {
             recalculateExpandedCards();
@@ -505,28 +488,18 @@ function setupExperienceResizeHandler() {
 }
 
 function recalculateExpandedCards() {
-    const expandedCards = document.querySelectorAll('.experience-card.expanded');
-    
-    expandedCards.forEach(card => {
+    document.querySelectorAll('.experience-card.expanded').forEach(card => {
         const content = card.querySelector('.experience-content');
-        const description = content.querySelector('.experience-description');
-        
-        // Temporarily expand to measure actual content height
         content.style.maxHeight = 'none';
-        content.style.paddingTop = '1.5rem';
-        content.style.paddingBottom = '1.5rem';
-        
-        // Force a layout recalculation
+        content.style.paddingTop = '1.25rem';
+        content.style.paddingBottom = '1.25rem';
         content.offsetHeight;
-        
-        // Get the actual height including padding
         const actualHeight = content.scrollHeight;
-        
-        // Add a buffer to account for increased margin and prevent content cutoff
-        const bufferHeight = actualHeight + 15;
-        
-        // Set the new calculated height
-        content.style.maxHeight = `${bufferHeight}px`;
+        content.style.maxHeight = `${actualHeight + 15}px`;
     });
 }
 
+// ===== ERROR HANDLING =====
+window.addEventListener('error', function(e) {
+    console.error('An error occurred:', e.error);
+});

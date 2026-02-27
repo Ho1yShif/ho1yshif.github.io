@@ -7,18 +7,34 @@ import CardComponent from './CardComponent.js';
  */
 class SpeakingCard extends CardComponent {
     getTemplate() {
-        const { title, role, organization, description, badge, link, featured } = this.data;
+        const { title, role, organization, description, badge, link, links, featured } = this.data;
         
+        const renderLinks = () => {
+            if (links && links.length > 0) {
+                return `<div class="speaking-platform-links">
+                    ${links.map(l => `
+                        <a href="${l.url}" class="speaking-platform-link" target="_blank" rel="noopener noreferrer" aria-label="${l.text}">
+                            <img src="${l.logo}" alt="${l.text}" class="speaking-platform-logo" />
+                        </a>
+                    `).join('')}
+                </div>`;
+            }
+            if (link) {
+                return `<a href="${link.url}" class="speaking-link" target="_blank" rel="noopener noreferrer">${link.text}</a>`;
+            }
+            return '';
+        };
+
         return `
             <div class="speaking-header">
                 ${badge ? `<div class="speaking-badge ${badge.type}">${badge.text}</div>` : ''}
                 <h3 class="speaking-title">${title}</h3>
                 <p class="speaking-role">${role}</p>
-                <p class="speaking-organization">${organization}</p>
+                ${organization ? `<p class="speaking-organization">${organization}</p>` : ''}
             </div>
             <div class="speaking-content">
                 <p class="speaking-description">${description}</p>
-                ${link ? `<a href="${link.url}" class="speaking-link" target="_blank" rel="noopener noreferrer">${link.text}</a>` : ''}
+                ${renderLinks()}
             </div>
         `;
     }
@@ -99,6 +115,18 @@ class SpeakingComponent extends BaseComponent {
     getDefaultEngagements() {
         return [
             {
+                title: "Saturdata",
+                role: "Co-host",
+                description: "The podcast by and for the data community that's humanizing the data world.",
+                badge: { text: "Podcast", type: "podcast" },
+                links: [
+                    { text: "YouTube", url: "https://www.youtube.com/@SaturdataPod", logo: "assets/logos/youtube.png" },
+                    { text: "Spotify", url: "https://open.spotify.com/show/5QolhKm1jDZzVuHO0S9ZBo", logo: "assets/logos/spotify.png" }
+                ],
+                featured: true,
+                category: "podcast"
+            },
+            {
                 title: "AI in Finance Forum",
                 role: "Featured speaker",
                 organization: "CFO Leadership",
@@ -110,7 +138,7 @@ class SpeakingComponent extends BaseComponent {
             {
                 title: "Women in Data Boston",
                 role: "Featured speaker", 
-                organization: "Sigma Computing & Women in Data community",
+                organization: "Sigma Computing & Women in Data",
                 description: "Delivered keynote on data leadership and women in tech, resulting in all data leader prospects moving forward in the marketing funnel.",
                 badge: { text: "DEI", type: "diversity" },
                 category: "conference"

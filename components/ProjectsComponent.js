@@ -96,7 +96,6 @@ class ProjectsComponent extends BaseComponent {
     }
     
     getDefaultProjects() {
-        return [
             {
                 title: "Crash Course: Code and Programming for Beginners",
                 description: "Educational video series teaching Java programming with 180K+ views, making complex programming concepts accessible to a broad audience.",

@@ -198,7 +198,7 @@ class SkillsComponent extends BaseComponent {
                     "ETL/ELT",
                     "OOP",
                     "Linux terminal",
-                    "JavaScript",
+                    "TypeScript",
                     "R",
                     "Java",
                     "Lua"
@@ -257,13 +257,14 @@ class SkillsComponent extends BaseComponent {
                 ]
             },
             {
-                title: "Product & growth",
+                title: "Developer relations",
                 skills: [
                     "Product management",
                     "UX design",
                     "Marketing",
                     "Content creation",
-                    "Community building"
+                    "Community building",
+                    "Event planning",
                 ]
             },
             {
