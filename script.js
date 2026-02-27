@@ -100,39 +100,34 @@ function scrollToSection(sectionId) {
     }
 }
 
-// ===== INTERSECTION OBSERVER (sync active state on scroll) =====
+// ===== SCROLL OBSERVER (sync active state on scroll) =====
 function initializeScrollObserver() {
     const content = document.getElementById('main-content');
     if (!content) return;
 
-    const sections = document.querySelectorAll('section[id]');
-    const sectionIds = Array.from(sections).map(s => s.id);
+    const sections = Array.from(document.querySelectorAll('section[id]'));
 
-    const observer = new IntersectionObserver(
-        (entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const id = entry.target.getAttribute('id');
-                    if (id && sectionIds.includes(id)) {
-                        setActiveSidebarItem(id);
-                        setActiveTab(id);
-
-                        // Update mobile header title
-                        const mobileTitle = document.querySelector('.mobile-header-title');
-                        if (mobileTitle) {
-                            mobileTitle.textContent = `shifra_db / ${id}.sql`;
-                        }
-                    }
-                }
-            });
-        },
-        {
-            root: content,
-            threshold: 0.35,
+    function getActiveSection() {
+        const triggerPoint = content.scrollTop + content.clientHeight * 0.3;
+        let active = sections[0];
+        for (const section of sections) {
+            if (section.offsetTop <= triggerPoint) active = section;
         }
-    );
+        return active;
+    }
 
-    sections.forEach(section => observer.observe(section));
+    function updateActiveSection() {
+        const active = getActiveSection();
+        if (!active) return;
+        const id = active.id;
+        setActiveSidebarItem(id);
+        setActiveTab(id);
+        const mobileTitle = document.querySelector('.mobile-header-title');
+        if (mobileTitle) mobileTitle.textContent = `shifra_db / ${id}.sql`;
+    }
+
+    content.addEventListener('scroll', updateActiveSection, { passive: true });
+    updateActiveSection();
 }
 
 // ===== MOBILE SIDEBAR =====

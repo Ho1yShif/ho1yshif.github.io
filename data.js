@@ -221,12 +221,12 @@ const PortfolioData = [
     badge: 'podcast',
     title: 'Saturdata',
     role: 'Co-host',
-    organization: 'Saturdata',
     description: 'Co-hosted the community podcast humanizing the data world for the next generation.',
     links: [
       { type: 'youtube',  url: 'https://www.youtube.com/watch?v=lWFpcwcSmQg&themeRefresh=1' },
       { type: 'spotify',  url: 'https://open.spotify.com/episode/0D3BaBiRxY4hAAGB1IITfQ?si=a6a09d5af2ea4da9' },
-      { type: 'linkedin', url: 'https://www.linkedin.com/company/saturdata/' }
+      { type: 'linkedin', url: 'https://www.linkedin.com/company/saturdata/' },
+      { type: 'website', url: 'https://saturdata.github.io/' },
     ]
   },
   {
