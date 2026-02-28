@@ -220,6 +220,7 @@ const PortfolioData = [
     type: 'appearance',
     badge: 'podcast',
     title: 'Saturdata',
+    organization: 'Saturdata',
     role: 'Co-host',
     description: 'Co-hosted the community podcast humanizing the data world for the next generation.',
     links: [
