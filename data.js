@@ -233,6 +233,24 @@ const PortfolioData = [
   {
     type: 'appearance',
     badge: 'conference',
+    title: 'Localhost',
+    role: 'Workshop speaker',
+    organization: 'Render',
+    description: "Delivered a hands-on workshop building an agentic code reviewer three ways: a naive in-process agent, queue-based background agents, and Render Workflows. The progression showed how the built-in durability, automatic retries, and parallel fan-out in Workflows replace the fragile coordination code teams would otherwise own.",
+    links: []
+  },
+  {
+    type: 'appearance',
+    badge: 'conference',
+    title: 'TechLeadConf',
+    role: 'Speaker',
+    organization: 'GitNation',
+    description: "Gave a talk showing engineering leaders how to build for developer experience in a world where developers are both people and AI agents, rethinking tooling, platform decisions, and feedback loops so they serve human and agentic developers alike.",
+    links: []
+  },
+  {
+    type: 'appearance',
+    badge: 'conference',
     title: 'AI Coding Summit',
     role: 'Workshop speaker',
     organization: 'GitNation',
@@ -241,11 +259,20 @@ const PortfolioData = [
   },
   {
     type: 'appearance',
+    badge: 'conference',
+    title: 'Transforming Data with Intelligence (TDWI)',
+    role: 'Speaker',
+    organization: '1105 Media',
+    description: "Gave a talk showcasing the value of an autonomous agent that can diagnose an error in a data pipeline and automatically open a pull request to fix it, with no human in the loop.",
+    links: []
+  },
+  {
+    type: 'appearance',
     badge: 'finance',
     title: 'AI in Finance Forum',
     role: 'Featured speaker',
     organization: 'CFO Leadership',
-    description: "Led a fireside chat exploring the role of the CFO as an AI leader—someone who doesn't need to build models but does need to lead transformation. Attendees gained clarity on building credibility, spotting opportunities, and bringing their teams along for the AI journey.",
+    description: "Led a fireside chat exploring the role of the CFO as an AI leader: someone who doesn't need to build models but does need to lead transformation. Attendees gained clarity on building credibility, spotting opportunities, and bringing their teams along for the AI journey.",
     links: []
   },
   {
