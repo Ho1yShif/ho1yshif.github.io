@@ -237,7 +237,7 @@ const PortfolioData = [
     role: 'Workshop leader',
     organization: 'Render',
     description: "Delivered a hands-on workshop building an agentic code reviewer three ways: a naive in-process agent, queue-based background agents, and Render Workflows. The progression showed how the built-in durability, automatic retries, and parallel fan-out in Workflows replace the fragile coordination code teams would otherwise own.",
-    links: []
+    links: [{ type: 'website', url: 'https://render.com/tutorials/agents-on-render-workflows' },]
   },
   {
     type: 'appearance',
