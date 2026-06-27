@@ -234,10 +234,21 @@ const PortfolioData = [
     type: 'appearance',
     badge: 'conference',
     title: 'Localhost',
-    role: 'Workshop speaker',
+    role: 'Workshop leader',
     organization: 'Render',
     description: "Delivered a hands-on workshop building an agentic code reviewer three ways: a naive in-process agent, queue-based background agents, and Render Workflows. The progression showed how the built-in durability, automatic retries, and parallel fan-out in Workflows replace the fragile coordination code teams would otherwise own.",
     links: []
+  },
+  {
+    type: 'appearance',
+    badge: 'conference',
+    title: 'PyAI London @ AI Engineer (AIE)',
+    role: 'Speaker',
+    organization: 'Pydantic AI',
+    description: "Spoke at the PyAI London event at the AI Engineer conference, sharing how to build reliable, production-grade observable AI agents and the Render infrastructure that make agentic systems durable at scale.",
+    links: [
+      { type: 'youtube', url: 'https://www.youtube.com/watch?v=KaQNo3BSfZM&t=369s' }
+    ]
   },
   {
     type: 'appearance',
