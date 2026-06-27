@@ -242,10 +242,10 @@ const PortfolioData = [
   {
     type: 'appearance',
     badge: 'conference',
-    title: 'PyAI London @ AI Engineer (AIE)',
+    title: 'PyAI London @ AI Engineer Europe',
     role: 'Speaker',
     organization: 'Pydantic AI',
-    description: "Spoke at the PyAI London event at the AI Engineer conference, sharing how to build reliable, production-grade observable AI agents and the Render infrastructure that make agentic systems durable at scale.",
+    description: "Spoke at the PyAI London event at the AI Engineer Europe conference, sharing how to build reliable, production-grade observable AI agents and the Render infrastructure that make agentic systems durable at scale.",
     links: [
       { type: 'youtube', url: 'https://www.youtube.com/watch?v=KaQNo3BSfZM&t=369s' }
     ]
