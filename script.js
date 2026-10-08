@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function initializeApp() {
     // Capture the deep-link target before the scroll observer overwrites the hash.
     const initialHash = window.location.hash;
+    renderAbout();
     renderProjects();
     renderAppearances();
     renderSkills();
@@ -561,6 +562,26 @@ function renderLinks(links) {
             ${_ICONS[link.type] || ''}
         </a>
     `).join('');
+}
+
+// Load the about text. Each line is a paragraph.
+async function renderAbout() {
+    const container = document.getElementById('about-text');
+    if (!container) return;
+
+    try {
+        const response = await fetch('content/about.txt');
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const text = await response.text();
+        container.replaceChildren(...text.split('\n').filter(line => line.trim()).map(line => {
+            const p = document.createElement('p');
+            p.className = 'about-intro';
+            p.textContent = line.trim();
+            return p;
+        }));
+    } catch (error) {
+        console.error('Could not load about text:', error);
+    }
 }
 
 function renderProjects() {
