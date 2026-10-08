@@ -266,7 +266,7 @@ const PortfolioData = [
     links: [
       {
         type: "website",
-        url: "https://render.com/tutorials/agents-on-render-workflows",
+        url: "https://render.com/tutorials/deploy-ai-agents-on-render",
       },
     ],
   },
@@ -293,7 +293,12 @@ const PortfolioData = [
     organization: "GitNation",
     description:
       "Gave a talk showing engineering leaders how to build for developer experience in a world where developers are both people and AI agents, rethinking tooling, platform decisions, and feedback loops so they serve human and agentic developers alike.",
-    links: [],
+    links: [
+      {
+        type: "youtube",
+        url: "https://www.youtube.com/watch?v=IKOWgr3KXk8&t=12s",
+      },
+    ],
   },
   {
     type: "appearance",
