@@ -1856,3 +1856,39 @@ a {
         justify-content: center;
     }
 }
+
+/* =============================
+   RESUME DOWNLOAD SPINNER
+   ============================= */
+.resume-spinner {
+    position: fixed;
+    top: 12px;
+    right: 16px;
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--border-color);
+    border-top-color: var(--primary-color);
+    border-radius: 50%;
+    animation: resume-spin 0.7s linear infinite;
+    z-index: 1000;
+}
+
+.resume-spinner[hidden] {
+    display: none;
+}
+
+@keyframes resume-spin {
+    to { transform: rotate(360deg); }
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}

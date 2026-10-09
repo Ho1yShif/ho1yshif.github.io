@@ -329,53 +329,6 @@ function initializeTypingEffect() {
     tick();
 }
 
-// ===== NOTIFICATION =====
-function showNotification(message, type = 'info') {
-    const notification = document.createElement('div');
-    notification.textContent = message;
-
-    const colors = {
-        success: '#23bb7d',
-        error:   '#c93200',
-        info:    '#1f2227'
-    };
-
-    const textColors = {
-        success: '#060709',
-        error:   '#dadee5',
-        info:    '#dadee5'
-    };
-
-    notification.style.cssText = `
-        position: fixed;
-        top: 60px;
-        right: 20px;
-        padding: 0.75rem 1.25rem;
-        border-radius: 0.375rem;
-        color: ${textColors[type] || textColors.info};
-        font-weight: 600;
-        z-index: 10000;
-        max-width: 360px;
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 0.8rem;
-        background: ${colors[type] || colors.info};
-        border: 1px solid #1f2227;
-        transform: translateX(100%);
-        transition: transform 0.3s ease;
-    `;
-
-    document.body.appendChild(notification);
-    setTimeout(() => notification.style.transform = 'translateX(0)', 50);
-    setTimeout(() => {
-        notification.style.transform = 'translateX(100%)';
-        setTimeout(() => {
-            if (document.body.contains(notification)) {
-                document.body.removeChild(notification);
-            }
-        }, 300);
-    }, 4000);
-}
-
 // ===== KEYBOARD NAVIGATION =====
 function initializeKeyboardNavigation() {
     document.addEventListener('keydown', function(e) {
@@ -418,48 +371,31 @@ function initializeResumeDownload() {
 }
 
 function downloadResumeFromGoogleDrive() {
-    const googleDriveShareUrl = 'https://docs.google.com/document/d/1KBnF9S5ot0XMx3fBoncZMl690q3BDPhMZGImKiMNIPQ/edit?usp=sharing';
-    const fileId = extractGoogleDriveFileId(googleDriveShareUrl);
+    const downloadUrl = 'https://docs.google.com/document/d/1KBnF9S5ot0XMx3fBoncZMl690q3BDPhMZGImKiMNIPQ/export?format=pdf';
+    const spinner = document.getElementById('resume-spinner');
+    if (!spinner.hidden) return;
 
-    if (fileId) {
-        const downloadUrl = `https://docs.google.com/document/d/${fileId}/export?format=pdf`;
-        showNotification('Preparing resume download...', 'info');
-
-        fetch(downloadUrl)
-            .then(response => {
-                if (!response.ok) throw new Error('Download failed');
-                return response.blob();
-            })
-            .then(blob => {
-                const objectUrl = URL.createObjectURL(blob);
-                const link = document.createElement('a');
-                link.href = objectUrl;
-                link.download = 'Shifra_Williams_Resume.pdf';
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                URL.revokeObjectURL(objectUrl);
-                showNotification('Resume download started!', 'success');
-            })
-            .catch(() => {
-                showNotification('Error: Unable to download resume.', 'error');
-            });
-    } else {
-        showNotification('Error: Unable to process resume download.', 'error');
-    }
-}
-
-function extractGoogleDriveFileId(url) {
-    const patterns = [
-        /\/document\/d\/([a-zA-Z0-9-_]+)/,
-        /id=([a-zA-Z0-9-_]+)/,
-        /\/file\/d\/([a-zA-Z0-9-_]+)/
-    ];
-    for (const pattern of patterns) {
-        const match = url.match(pattern);
-        if (match) return match[1];
-    }
-    return null;
+    spinner.hidden = false;
+    fetch(downloadUrl)
+        .then(response => {
+            if (!response.ok) throw new Error('Download failed');
+            return response.blob();
+        })
+        .then(blob => {
+            const objectUrl = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = objectUrl;
+            link.download = 'Shifra_Williams_Resume.pdf';
+            link.click();
+            setTimeout(() => URL.revokeObjectURL(objectUrl), 0);
+        })
+        .catch(() => {
+            // If the fetch fails, let the browser download the file directly.
+            window.location.href = downloadUrl;
+        })
+        .finally(() => {
+            spinner.hidden = true;
+        });
 }
 
 // ===== EXPERIENCE SECTION =====
